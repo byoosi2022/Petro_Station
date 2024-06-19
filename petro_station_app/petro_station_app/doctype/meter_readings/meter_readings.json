@@ -1,0 +1,148 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-05-04 13:14:56.748338",
+ "default_view": "List",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_u0zu",
+  "naming_series",
+  "branch",
+  "employee",
+  "employee_name",
+  "qty_as_per_now",
+  "column_break_vnal",
+  "date",
+  "current_date",
+  "pump",
+  "initial_reading_value",
+  "present_reading_value",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_u0zu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "naming_series",
+   "options": "PSA-PMR-.YYYY.-"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "User"
+  },
+  {
+   "fetch_from": "employee.full_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_vnal",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "label": "Initial Date"
+  },
+  {
+   "fieldname": "current_date",
+   "fieldtype": "Datetime",
+   "label": "current Date"
+  },
+  {
+   "fieldname": "pump",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pump",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "initial_reading_value",
+   "fieldtype": "Float",
+   "label": "Initial Reading Value"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "present_reading_value",
+   "fieldtype": "Float",
+   "label": "current reading value"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Meter Readings",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "qty_as_per_now",
+   "fieldtype": "Float",
+   "label": "Qty as per Now"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-06-08 15:55:46.973092",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Meter Readings",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "pump",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

@@ -1,0 +1,157 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-05-04 11:52:15.423408",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_ret9",
+  "tank",
+  "item_code",
+  "current_acty_qty",
+  "current_dipping_level",
+  "dipping_difference",
+  "column_break_djzw",
+  "naming_series",
+  "date",
+  "employee",
+  "employee_name",
+  "branch",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ret9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tank",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tank ",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item Code",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_acty_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Actual Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_dipping_level",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Curent Dipping Level",
+   "reqd": 1
+  },
+  {
+   "fieldname": "dipping_difference",
+   "fieldtype": "Float",
+   "label": "Dipping Difference",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_djzw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "PSA-DL-.YYYY.-"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.full_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Cost Center",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Dipping Log",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-05-13 13:21:19.443809",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Dipping Log",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "tank",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

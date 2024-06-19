@@ -1,0 +1,282 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-05-24 09:12:46.169576",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_paqq",
+  "naming_series",
+  "supplier",
+  "transporter_name",
+  "vehicle_number_plate",
+  "supplier_invoice",
+  "supplier_invoice_date",
+  "cost_center",
+  "column_break_gsdv",
+  "date",
+  "time",
+  "amended_from",
+  "currency",
+  "price_list",
+  "due_date",
+  "lr_date",
+  "section_break_lvit",
+  "items",
+  "section_break_liio",
+  "total_qty",
+  "column_break_yttp",
+  "grand_total_usds",
+  "grand_totals",
+  "other_charges_section",
+  "other_items",
+  "section_break_fzrf",
+  "total_quantity",
+  "column_break_bkgy",
+  "grand_total_usd",
+  "grand_total_ugx",
+  "stock_transfer_section",
+  "purchase_items_button",
+  "stock_items",
+  "section_break_dwbz",
+  "total_qtys",
+  "purchase_receipt_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_paqq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "default": "now",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Date"
+  },
+  {
+   "default": "now",
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time"
+  },
+  {
+   "fieldname": "transporter_name",
+   "fieldtype": "Data",
+   "label": "Transporter Name"
+  },
+  {
+   "fieldname": "vehicle_number_plate",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Vehicle Number Plate"
+  },
+  {
+   "fieldname": "column_break_gsdv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Purchase Management",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "supplier_invoice",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Supplier Invoice"
+  },
+  {
+   "default": "now",
+   "fieldname": "supplier_invoice_date",
+   "fieldtype": "Date",
+   "label": "Supplier Invoice Date"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "price_list",
+   "fieldtype": "Link",
+   "label": "Price List",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "section_break_lvit",
+   "fieldtype": "Section Break",
+   "label": "Purchase Items"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Purchase Management Items"
+  },
+  {
+   "fieldname": "other_charges_section",
+   "fieldtype": "Section Break",
+   "label": "Other Charges"
+  },
+  {
+   "fieldname": "stock_transfer_section",
+   "fieldtype": "Section Break",
+   "label": "Stock transfer"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "stock_items",
+   "fieldtype": "Table",
+   "label": "Stock Items",
+   "options": "Stock transfer Item"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "PSA-PM-.YYYY.-"
+  },
+  {
+   "fieldname": "section_break_liio",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Qty"
+  },
+  {
+   "fieldname": "column_break_yttp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_fzrf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Qty"
+  },
+  {
+   "fieldname": "column_break_bkgy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grand_total_usd",
+   "fieldtype": "Data",
+   "label": "Grand Total USD"
+  },
+  {
+   "fieldname": "grand_total_ugx",
+   "fieldtype": "Currency",
+   "label": "Grand Total UGX"
+  },
+  {
+   "fieldname": "section_break_dwbz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_qtys",
+   "fieldtype": "Float",
+   "label": "Total Qty "
+  },
+  {
+   "fieldname": "grand_totals",
+   "fieldtype": "Currency",
+   "label": "Grand Total"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "grand_total_usds",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Grand Total USD"
+  },
+  {
+   "fieldname": "lr_date",
+   "fieldtype": "Date",
+   "label": "Vehicle Date"
+  },
+  {
+   "fieldname": "other_items",
+   "fieldtype": "Table",
+   "label": "Other Items",
+   "options": "Purchase Management Suppliers"
+  },
+  {
+   "fieldname": "purchase_receipt_name",
+   "fieldtype": "Link",
+   "label": "purchase receipt id",
+   "options": "Purchase Receipt"
+  },
+  {
+   "fieldname": "purchase_items_button",
+   "fieldtype": "Button",
+   "label": "Get from Purchase items table"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-06-05 15:32:32.737141",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Purchase Management",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "supplier"
+}

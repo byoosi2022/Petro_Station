@@ -1,0 +1,143 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-05-04 11:57:22.363353",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_u0zu",
+  "naming_series",
+  "branch",
+  "employee",
+  "employee_name",
+  "sales_invoice",
+  "sales_invoice_posting_date",
+  "column_break_vnal",
+  "date",
+  "pump",
+  "current_reading_value",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_u0zu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "naming_series",
+   "options": "PSA-PMR-.YYYY.-"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "User"
+  },
+  {
+   "fetch_from": "employee.full_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "sales_invoice_posting_date",
+   "fieldtype": "Date",
+   "label": "Sales Invoice Posting date",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "column_break_vnal",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "label": "Date"
+  },
+  {
+   "fieldname": "pump",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pump",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "current_reading_value",
+   "fieldtype": "Float",
+   "label": "Current Reading Value"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Pump Meter Reading",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "in_create": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-05-13 13:19:11.878614",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Pump Meter Reading",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "pump",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

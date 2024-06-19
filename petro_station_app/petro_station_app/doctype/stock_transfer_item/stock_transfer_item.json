@@ -1,0 +1,78 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-24 09:40:43.793933",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "accepted_warehouse",
+  "column_break_jsrl",
+  "target_store",
+  "qty",
+  "cost_center",
+  "difference_account"
+ ],
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty"
+  },
+  {
+   "fieldname": "column_break_jsrl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "PURCHASE STORE - FEU",
+   "fieldname": "accepted_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Source store",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "target_store",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Target store",
+   "options": "Warehouse"
+  },
+  {
+   "default": "Fahaab Energy Uganda - FEU",
+   "fetch_from": "target_store.custom_cost_centre",
+   "fieldname": "cost_center",
+   "fieldtype": "Data",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "difference_account",
+   "fieldtype": "Link",
+   "label": "Difference Account",
+   "options": "Account"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-06-16 14:30:03.837576",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Stock transfer Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

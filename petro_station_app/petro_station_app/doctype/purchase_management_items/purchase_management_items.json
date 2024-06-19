@@ -1,0 +1,82 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-24 09:27:53.797605",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "qty",
+  "rate",
+  "amount",
+  "column_break_pbqe",
+  "amt_usd",
+  "cost_center",
+  "warehouse"
+ ],
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty"
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Rate"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount"
+  },
+  {
+   "fieldname": "amt_usd",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Amt usd"
+  },
+  {
+   "default": "PURCHASE STORE - FEU",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_pbqe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Fahaab Energy Depot Soroti - FEU",
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-05-27 13:34:45.310868",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Purchase Management Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,5 +1,7 @@
 {
  "actions": [],
+ "allow_auto_repeat": 1,
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2024-05-04 13:14:56.748338",
@@ -74,6 +76,7 @@
    "options": "Warehouse"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "initial_reading_value",
    "fieldtype": "Float",
    "label": "Initial Reading Value"
@@ -95,15 +98,17 @@
    "search_index": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "qty_as_per_now",
    "fieldtype": "Float",
-   "label": "Qty as per Now"
+   "label": "Qty as per Now",
+   "precision": "3"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-08 15:55:46.973092",
+ "modified": "2024-07-04 11:52:05.997939",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Meter Readings",
@@ -132,6 +137,20 @@
    "read": 1,
    "report": 1,
    "role": "Accounts Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
    "select": 1,
    "share": 1,
    "submit": 1,

@@ -8,6 +8,9 @@
  "field_order": [
   "item",
   "accepted_warehouse",
+  "tank_fuel_copacity",
+  "item_actual_qty",
+  "capacity_need_for_transfer",
   "column_break_jsrl",
   "target_store",
   "qty",
@@ -39,6 +42,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Source store",
+   "link_filters": "[[\"Warehouse\",\"warehouse_type\",\"=\",\"Transit\"]]",
    "options": "Warehouse"
   },
   {
@@ -46,6 +50,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Target store",
+   "link_filters": "[[\"Warehouse\",\"warehouse_type\",\"=\",\"Transit\"]]",
    "options": "Warehouse"
   },
   {
@@ -61,12 +66,28 @@
    "fieldtype": "Link",
    "label": "Difference Account",
    "options": "Account"
+  },
+  {
+   "fetch_from": "target_store.custom_tank_fuel_copacity",
+   "fieldname": "tank_fuel_copacity",
+   "fieldtype": "Float",
+   "label": "Tank Fuel Copacity"
+  },
+  {
+   "fieldname": "capacity_need_for_transfer",
+   "fieldtype": "Float",
+   "label": "Fuel Capacity Need for Transfer"
+  },
+  {
+   "fieldname": "item_actual_qty",
+   "fieldtype": "Float",
+   "label": "Fue Capacity in the Tank"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-16 14:30:03.837576",
+ "modified": "2024-07-04 17:40:52.392873",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Stock transfer Item",

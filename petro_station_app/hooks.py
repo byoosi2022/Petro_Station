@@ -145,7 +145,8 @@ doc_events = {
             # "petro_station_app.custom_api.stock_transfer.create_stock_transfer_server",
             "petro_station_app.custom_api.meter_reading.create_pump_meter_reading",
             
-        ]
+        ],
+        "on_cancel": "petro_station_app.custom_api.meter_reading.create_pump_meter_reading"
     },
     "Fuel Sales App": {
       

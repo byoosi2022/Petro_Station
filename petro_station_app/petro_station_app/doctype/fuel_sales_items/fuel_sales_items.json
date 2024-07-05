@@ -9,24 +9,28 @@
  "field_order": [
   "naming_series",
   "price_list",
-  "item_code",
   "pos_profile",
+  "item_code",
   "qty",
   "column_break_tifc",
   "rate",
   "amount",
   "warehouse",
   "uom",
-  "number_plate"
+  "number_plate",
+  "order_number",
+  "milage"
  ],
  "fields": [
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Naming Series",
    "options": "PSA-FSI-.YYYY.-"
   },
   {
+   "columns": 1,
    "fieldname": "item_code",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -35,10 +39,12 @@
    "reqd": 1
   },
   {
+   "columns": 1,
    "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Qty",
+   "precision": "3",
    "reqd": 1
   },
   {
@@ -46,55 +52,76 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "rate",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Rate"
+   "label": "Rate",
+   "precision": "3",
+   "reqd": 1
   },
   {
+   "columns": 2,
    "fieldname": "amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Amount",
+   "precision": "3",
    "read_only": 1
   },
   {
    "fetch_from": "pos_profile.warehouse",
    "fieldname": "warehouse",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Warehouse"
   },
   {
+   "columns": 2,
    "fieldname": "pos_profile",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "POS",
-   "options": "POS Profile"
+   "options": "POS Profile",
+   "reqd": 1
   },
   {
    "fetch_from": "item_code.stock_uom",
    "fieldname": "uom",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "UOM"
   },
   {
    "fieldname": "price_list",
    "fieldtype": "Link",
    "label": "Price List",
-   "options": "Price List"
+   "options": "Price List",
+   "reqd": 1
   },
   {
+   "columns": 2,
    "fieldname": "number_plate",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Vehicle's Plates",
    "options": "Vehicle Plates"
+  },
+  {
+   "fieldname": "order_number",
+   "fieldtype": "Data",
+   "label": "Order Number"
+  },
+  {
+   "fieldname": "milage",
+   "fieldtype": "Data",
+   "label": "Milage"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 14:23:27.072580",
+ "modified": "2024-07-03 17:33:09.038497",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Fuel Sales Items",

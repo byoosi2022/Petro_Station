@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2024-05-04 11:57:22.363353",
@@ -12,9 +13,11 @@
   "employee",
   "employee_name",
   "sales_invoice",
+  "custom_fuel_sales_app_id",
   "sales_invoice_posting_date",
   "column_break_vnal",
   "date",
+  "pump_date",
   "pump",
   "current_reading_value",
   "amended_from"
@@ -22,7 +25,8 @@
  "fields": [
   {
    "fieldname": "section_break_u0zu",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "read_only": 1
   },
   {
    "fieldname": "naming_series",
@@ -34,7 +38,9 @@
    "fieldname": "branch",
    "fieldtype": "Link",
    "label": "Branch",
-   "options": "Cost Center"
+   "options": "Cost Center",
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "employee",
@@ -76,9 +82,11 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Pump",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "current_reading_value",
    "fieldtype": "Float",
    "label": "Current Reading Value"
@@ -92,13 +100,23 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "custom_fuel_sales_app_id",
+   "fieldtype": "Link",
+   "label": "Fuel Sales App ID",
+   "options": "Fuel Sales App"
+  },
+  {
+   "fieldname": "pump_date",
+   "fieldtype": "Date",
+   "label": "Pump Date"
   }
  ],
- "in_create": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-05-13 13:19:11.878614",
+ "modified": "2024-07-02 20:15:13.470971",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Pump Meter Reading",
@@ -127,6 +145,20 @@
    "read": 1,
    "report": 1,
    "role": "Accounts Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
    "select": 1,
    "share": 1,
    "submit": 1,

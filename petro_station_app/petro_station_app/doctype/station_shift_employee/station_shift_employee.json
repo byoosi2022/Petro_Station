@@ -1,0 +1,60 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-06-30 19:57:34.782237",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee_attendance_section",
+  "employee",
+  "employee_name",
+  "designation",
+  "attendance"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee_attendance_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Attendance"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name"
+  },
+  {
+   "default": "0",
+   "fieldname": "attendance",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Attendance"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Designation"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-06-30 20:08:13.410205",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Station Shift Employee",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

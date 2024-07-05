@@ -1,0 +1,63 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-04 09:16:20.378532",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "invoice_id",
+  "date",
+  "customer",
+  "totals",
+  "discount"
+ ],
+ "fields": [
+  {
+   "fieldname": "invoice_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Invoice ID",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "totals",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Totals",
+   "precision": "3"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Discount",
+   "precision": "3"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-07-04 09:35:33.584791",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Invoice Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

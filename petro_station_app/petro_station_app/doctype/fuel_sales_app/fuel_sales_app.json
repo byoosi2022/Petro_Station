@@ -18,6 +18,7 @@
   "date",
   "time",
   "due_date",
+  "percentge_discount",
   "section_break_egou",
   "items",
   "section_break_acbi",
@@ -40,6 +41,7 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Naming Series",
    "options": "PSA-FSA-.YYYY.-"
   },
@@ -64,7 +66,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "1",
+   "default": "0",
    "fieldname": "include_payments",
    "fieldtype": "Check",
    "label": "Include Payments"
@@ -73,6 +75,9 @@
    "default": "now",
    "fieldname": "date",
    "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Date"
   },
   {
@@ -84,7 +89,6 @@
   {
    "fieldname": "station",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Station",
    "options": "Cost Center",
@@ -108,6 +112,7 @@
    "fieldname": "total_qty",
    "fieldtype": "Float",
    "label": "Total Qty",
+   "precision": "3",
    "read_only": 1
   },
   {
@@ -118,20 +123,21 @@
    "fieldname": "grand_totals",
    "fieldtype": "Currency",
    "label": "Grand Totals",
+   "precision": "3",
    "read_only": 1
   },
   {
    "allow_on_submit": 1,
    "fieldname": "sales_invoice_created",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Sales Invoice",
    "options": "Sales Invoice"
   },
   {
    "fieldname": "additional_discount_amount",
    "fieldtype": "Currency",
-   "label": "Additional Discount Amount"
+   "label": "Additional Discount Amount",
+   "precision": "3"
   },
   {
    "fieldname": "due_date",
@@ -156,7 +162,8 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Net Total"
+   "label": "Net Total",
+   "precision": "3"
   },
   {
    "fieldname": "amended_from",
@@ -171,6 +178,7 @@
   {
    "fieldname": "price_list",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Price List",
    "options": "Price List"
   },
@@ -211,12 +219,18 @@
    "hidden": 1,
    "label": "JE ID",
    "options": "Journal Entry"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "percentge_discount",
+   "fieldtype": "Data",
+   "label": "Percentge Discount"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-08 14:30:30.030270",
+ "modified": "2024-07-05 13:03:50.860248",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Fuel Sales App",

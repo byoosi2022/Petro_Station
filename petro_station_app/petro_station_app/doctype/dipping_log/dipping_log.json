@@ -1,5 +1,7 @@
 {
  "actions": [],
+ "allow_auto_repeat": 1,
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2024-05-04 11:52:15.423408",
@@ -14,6 +16,7 @@
   "dipping_difference",
   "column_break_djzw",
   "naming_series",
+  "dipping_date",
   "date",
   "employee",
   "employee_name",
@@ -31,6 +34,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Tank ",
+   "link_filters": "[[\"Warehouse\",\"warehouse_type\",\"=\",\"Transit\"]]",
    "options": "Warehouse",
    "reqd": 1
   },
@@ -74,7 +78,8 @@
   {
    "fieldname": "date",
    "fieldtype": "Datetime",
-   "label": "Date",
+   "label": "Time and Date",
+   "options": "now",
    "reqd": 1
   },
   {
@@ -107,12 +112,18 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "dipping_date",
+   "fieldtype": "Date",
+   "label": "Dipping Date ",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-05-13 13:21:19.443809",
+ "modified": "2024-07-04 02:27:38.547213",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Dipping Log",
@@ -141,6 +152,20 @@
    "read": 1,
    "report": 1,
    "role": "Accounts Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
    "select": 1,
    "share": 1,
    "submit": 1,

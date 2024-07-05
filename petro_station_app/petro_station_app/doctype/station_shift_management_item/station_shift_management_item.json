@@ -1,0 +1,109 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-06-28 20:35:45.356996",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "pump_or_tank",
+  "opening_meter_reading",
+  "closing_meter_reading",
+  "qty_sold_on_meter_reading",
+  "qty_based_on_sales",
+  "sales_based_on_meter_reading",
+  "sales_based_on_invoices",
+  "difference_amount",
+  "pump_rate",
+  "current_reading_value"
+ ],
+ "fields": [
+  {
+   "fieldname": "pump_or_tank",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pump or Tank",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "opening_meter_reading",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Opening Meter Reading",
+   "precision": "3"
+  },
+  {
+   "fieldname": "closing_meter_reading",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Closing Meter Reading",
+   "precision": "3"
+  },
+  {
+   "fieldname": "qty_sold_on_meter_reading",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Difference on Meter Reading",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qty_based_on_sales",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty Based on Sales",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_based_on_meter_reading",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Sales Based On Meter reading",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_based_on_invoices",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Sales Based On Invoices",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "difference_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Difference Amount",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pump_rate",
+   "fieldtype": "Currency",
+   "label": "Pump Rate",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_reading_value",
+   "fieldtype": "Float",
+   "label": "Most Recent Meter Reading",
+   "precision": "3"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-07-02 22:09:27.997172",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Station Shift Management item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

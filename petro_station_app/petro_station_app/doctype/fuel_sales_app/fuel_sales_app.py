@@ -42,19 +42,20 @@ class FuelSalesApp(Document):
             frappe.db.commit()
             frappe.msgprint(_("Tank to Pump transfer successfully transferred to the Client"))
 
-        # Check if a Sales Invoice has already been created
+        # Check if a Sales Invoice has already been created 
         if not self.sales_invoice_created:
             sales_invoice = frappe.new_doc("Sales Invoice")
             sales_invoice.customer = self.customer
             sales_invoice.discount_amount = self.additional_discount_amount
             sales_invoice.due_date = self.due_date
             sales_invoice.allocate_advances_automatically = 0 if self.include_payments == 1 else 1
-            sales_invoice.cost_center = self.station
+            sales_invoice.cost_center = self.station 
             sales_invoice.update_stock = 1
             sales_invoice.set_posting_time = 1
             sales_invoice.posting_date = self.date
             sales_invoice.posting_time = self.time
-            sales_invoice.custom_fuel_sales_app_id = self.name 
+            sales_invoice.additional_discount_account = "5125 - Discounts on Fuel - FEU"
+            sales_invoice.custom_fuel_sales_app_id = self.name
 
             for item in self.items:
                 sales_invoice.append("items", {
@@ -97,7 +98,8 @@ class FuelSalesApp(Document):
                         payment_entry.paid_to = default_account
                         payment_entry.paid_to_account_currency = currency
                         payment_entry.mode_of_payment = mode_of_payment
-                        payment_entry.custom_fuel_sales_app_id = self.name 
+                        payment_entry.custom_fuel_sales_app_id = self.name
+                        payment_entry.cost_center = self.station 
 
                         # Ensure allocated amount does not exceed the outstanding amount
                         outstanding_amount = sales_invoice.outstanding_amount

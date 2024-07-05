@@ -7,17 +7,18 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_q9yo",
-  "account_paid_from",
-  "naming_series",
-  "paid_amount",
-  "reference_no",
-  "reference_date",
   "column_break_nfuc",
+  "posting_date",
+  "banking_date",
+  "station",
+  "account_paid_from",
+  "paid_amount",
   "account_paid_to",
   "amended_from",
-  "posting_date",
-  "time",
-  "transfer_id"
+  "naming_series",
+  "transfer_id",
+  "reference_no",
+  "reference_date"
  ],
  "fields": [
   {
@@ -25,18 +26,20 @@
    "fieldtype": "Section Break"
   },
   {
+   "fetch_from": "station.custom_cash_account",
    "fieldname": "account_paid_from",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Account Paid From",
+   "link_filters": "[[\"Account\",\"account_type\",\"=\",\"Cash\"]]",
    "options": "Account",
    "reqd": 1
   },
   {
    "fieldname": "paid_amount",
    "fieldtype": "Currency",
-   "label": "Paid Amount "
+   "label": "Amount Banked"
   },
   {
    "fieldname": "reference_no",
@@ -52,7 +55,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Account Paid To",
+   "label": "Account Banked to",
+   "link_filters": "[[\"Account\",\"account_type\",\"=\",\"Bank\"],[\"Account\",\"account_currency\",\"!=\",\"USD\"]]",
    "options": "Account",
    "reqd": 1
   },
@@ -76,34 +80,42 @@
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "in_standard_filter": 1,
-   "label": "Posting date"
-  },
-  {
-   "default": "now",
-   "fieldname": "time",
-   "fieldtype": "Time",
-   "label": "Time"
+   "label": "Actual Date Recieved(Money)",
+   "reqd": 1
   },
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Series",
    "options": "PSA-TC-.YYYY.-"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "transfer_id",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Transfer ID",
-   "options": "Payment Entry",
-   "read_only": 1
+   "options": "Payment Entry"
+  },
+  {
+   "fieldname": "station",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "Cost Center",
+   "reqd": 1
+  },
+  {
+   "fieldname": "banking_date",
+   "fieldtype": "Date",
+   "label": "Banking Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-05-15 16:15:03.976420",
+ "modified": "2024-07-04 13:16:17.949486",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Transfer Cash",

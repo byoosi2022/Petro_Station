@@ -32,6 +32,16 @@ class PurchaseManagement(Document):
         purchase_receipt_entry.supplier_delivery_note = self.supplier_invoice
         purchase_receipt_entry.bill_date = self.supplier_invoice_date
         purchase_receipt_entry.currency = self.currency
+        
+        # Set conversion rates based on currency
+        if self.currency == 'UGX':
+            purchase_receipt_entry.conversion_rate = 1
+            purchase_receipt_entry.plc_conversion_rate = 1
+       
+        else:
+            purchase_receipt_entry.conversion_rate = self.usd_exchange_rate
+            purchase_receipt_entry.plc_conversion_rate = self.usd_exchange_rate
+      
         purchase_receipt_entry.buying_price_list = self.price_list
         purchase_receipt_entry.transporter_name = self.transporter_name
         purchase_receipt_entry.lr_no = self.vehicle_number_plate
@@ -43,7 +53,6 @@ class PurchaseManagement(Document):
                 purchase_receipt_entry.append("items", {
                     "item_code": item.item,
                     "qty": item.qty,
-                    "rate": item.rate,
                     "warehouse": item.warehouse,
                     "cost_center": item.cost_center
                 })
@@ -77,6 +86,16 @@ class PurchaseManagement(Document):
         purchase_invoice_entry.bill_no = purchase_invo.supplier_delivery_note
         purchase_invoice_entry.bill_date = self.supplier_invoice_date
         purchase_invoice_entry.buying_price_list = self.price_list
+        
+         # Set conversion rates based on currency
+        if self.currency == 'UGX':
+            purchase_invoice_entry.conversion_rate = 1
+            purchase_invoice_entry.plc_conversion_rate = 1
+       
+        else:
+            purchase_invoice_entry.conversion_rate = self.usd_exchange_rate
+            purchase_invoice_entry.plc_conversion_rate = self.usd_exchange_rate
+        
         purchase_invoice_entry.custom_purchase_reciept_id = self.name
         for item in purchase_invo.items:
             purchase_invoice_entry.append("items", {
@@ -130,6 +149,7 @@ class PurchaseManagement(Document):
                     "item_code": item.item,
                     "qty": item.qty,
                     "rate": item.rate,
+                    "net_rate":item.rate,
                     "warehouse": item.accepted_warehouse,
                     "cost_center": item.cost_center
                 })

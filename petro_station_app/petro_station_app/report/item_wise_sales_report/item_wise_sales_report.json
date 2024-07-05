@@ -1,0 +1,38 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2024-06-27 11:47:38.082804",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "Fahaab letterhead",
+ "letterhead": null,
+ "modified": "2024-06-27 11:47:38.082804",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Item Wise Sales Report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT\r\n    customer_name,\r\nFROM\r\n    Sales Invoice\r\nORDER BY\r\n    date DESC;",
+ "ref_doctype": "Sales Invoice",
+ "report_name": "Item Wise Sales Report",
+ "report_script": "",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Employee Self Service"
+  },
+  {
+   "role": "Guest"
+  }
+ ]
+}

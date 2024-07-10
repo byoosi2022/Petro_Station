@@ -267,11 +267,14 @@ def get_details_employee(station):
     return fetch_employee
 
 @frappe.whitelist()
-def get_gl_acount(station,from_date=None):
-    # Get GL Entries with the specified cost center
+def get_gl_acount(station, from_date=None):
+    if not from_date:
+        return {"error": "from_date is required"}
+
+    # Get GL Entries with the specified cost center and exclude cancelled entries from the from_date onwards
     fetch_entries = frappe.get_all(
         "GL Entry",
-        filters={"cost_center": station,"is_cancelled": 0,"posting_date":from_date},
+        filters={"cost_center": station, "is_cancelled": 0, "posting_date": (">=", from_date)},
         fields=["name", "debit", "credit", "account"]
     )
 
@@ -291,7 +294,10 @@ def get_gl_acount(station,from_date=None):
             account_totals[entry['account']]["total_debits"] += entry['debit']
             account_totals[entry['account']]["total_credits"] += entry['credit']
 
-    return account_totals
+    # Convert the totals dictionary to a list of values
+    result = list(account_totals.values())
+
+    return result
 
 @frappe.whitelist()
 def get_gl_acount_withoutdate(station):

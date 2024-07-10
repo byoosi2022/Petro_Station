@@ -115,8 +115,6 @@ class PurchaseManagement(Document):
     
     # ends here............
 
-
-
     def create_purchase_invoice(self):
         existing_invoices = frappe.get_all("Purchase Invoice", filters={"custom_purchase_management_id": self.name}, limit=1)
         if existing_invoices:

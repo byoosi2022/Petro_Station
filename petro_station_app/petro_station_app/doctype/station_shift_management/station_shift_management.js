@@ -28,7 +28,7 @@ frappe.ui.form.on('Station Shift Management', {
 
                         frm.refresh_field('items'); // Refresh the child table view after the loop
                     } else {
-                        console.log("No items data found in response.");
+                        frappe.msgprint("No items data found in response.");
                     }
                 }
             }
@@ -61,7 +61,7 @@ frappe.ui.form.on('Station Shift Management', {
 
                         frm.refresh_field('attendance'); // Refresh the child table view after the loop
                     } else {
-                        console.log("No items data found in response.");
+                        frappe.msgprint("No items data found in response.");
                     }
                 }
             }
@@ -97,7 +97,7 @@ frappe.ui.form.on('Station Shift Management', {
         
                     frm.refresh_field('accounts'); // Refresh the child table view after the loop
                 } else {
-                    console.log("No accounts data found in response.");
+                    frappe.msgprint("No accounts data found in response.");
                 }
             }
         });
@@ -109,7 +109,24 @@ frappe.ui.form.on('Station Shift Management', {
         fetchSalesDetails(frm);
     },
     get_bankings_and_cash: function(frm) {
+        // getBankingandCash(frm);
+        getBankingandCashwithoutdate(frm);
+    },
+
+    get_for_todaty: function(frm) {
         getBankingandCash(frm);
+        // getBankingandCashwithoutdate(frm);
+    },
+    get_invoice_details: function(frm) {
+        populateInvoiceItems(frm);
+    },
+
+    get_all_transfers_for_today: function(frm) {
+        populateCashTransferTable(frm);
+    },
+
+    get_all_expense_for_today: function(frm) {
+        populateExpenditureTable344(frm);
     },
 
     before_submit: function(frm) {
@@ -430,12 +447,53 @@ function getBankingandCash(frm) {
         
                     frm.refresh_field('accounts'); // Refresh the child table view after the loop
                 } else {
-                    console.log("No accounts data found in response.");
+                    frappe.msgprint("No accounts data found in response.");
                 }
             }
         });
         
  
+}
+
+function getBankingandCashwithoutdate(frm) {
+
+    frappe.call({
+         method: 'petro_station_app.custom_api.api.get_gl_acount_withoutdate',
+         args: {
+             station: frm.doc.station,
+            //  from_date: frm.doc.from_date,
+         },
+         callback: function(r) {
+             if (r.message) {
+                 var accounts = r.message; // Assign the returned accounts
+     
+                 // Clear existing items before populating (optional)
+                 frm.clear_table('accounts');
+     
+                 // Loop through each key in the response
+                 for (var key in accounts) {
+                     if (accounts.hasOwnProperty(key)) {
+                         var account_data = accounts[key];
+                         var new_item = frm.add_child('accounts'); // Create a new child row
+     
+                         // Set values from response to new item fields
+                         new_item.account = account_data.account;
+                         new_item.amount_recived = account_data.total_debits;
+                         new_item.amount_spent = account_data.total_credits;
+                         new_item.available_amount = account_data.total_debits - account_data.total_credits;
+     
+                         // Add other relevant fields here
+                     }
+                 }
+     
+                 frm.refresh_field('accounts'); // Refresh the child table view after the loop
+             } else {
+                frappe.msgprint("No accounts data found in response.");
+             }
+         }
+     });
+     
+
 }
 
 function validateBankingandCash(frm) {
@@ -471,4 +529,143 @@ function validateBankingandCash(frm) {
         });
     }
 }
+function populateInvoiceItems(frm) {
+    frappe.call({
+        method: 'petro_station_app.custom_api.invoice.get_sales_invoices_with_totals',
+        args: {
+            cost_center: frm.doc.station,
+            posting_date: frm.doc.from_date,
+        },
+        callback: function(r) {
+            // console.log(r)
+            if (r.message && r.message.Invoices) {
+                var invoices = r.message.Invoices;
 
+                // Clear existing items before populating (optional)
+                frm.clear_table('invoice_items');
+
+                // Loop through each invoice in the response
+                for (var i = 0; i < invoices.length; i++) {
+                    var invoice = invoices[i];
+                    var items = invoice.Items; // Assuming Items is an array
+
+                    // Loop through each item in the invoice
+                    for (var j = 0; j < items.length; j++) {
+                        var item = items[j];
+                        var new_item = frm.add_child('invoice_items'); // Create a new child row
+
+
+                        // Set values from item to new item fields
+                        new_item.invoice_id = invoice['Invoice Name'];
+                        new_item.date = invoice['Posting Date'];
+                        new_item.customer_name = invoice['Customer Name'];
+                        new_item.customer = invoice['Customer'];
+                        new_item.item_code = item['Item Code'];
+                        new_item.quantity = item['Quantity'];
+                        new_item.amount = item['Amount'];
+                        // Add other relevant fields based on your data structure
+
+                        frm.refresh_field('invoice_items'); // Refresh the child table view after each item
+                    }
+                }
+            } else {
+                frappe.msgprint("No valid invoices found in response.");
+            }
+        },
+        error: function(xhr, textStatus, error) {
+            console.error('Error fetching invoices:', error);
+            frappe.msgprint('Error fetching invoices. Please try again.');
+        }
+    });
+}
+
+function populateCashTransferTable(frm) {
+    frappe.call({
+        method: 'petro_station_app.custom_api.invoice.get_cash_transfers_with_totals',
+        args: {
+            cost_center: frm.doc.station,
+            posting_date: frm.doc.from_date,
+        },
+        callback: function(r) {
+            // console.log(r)
+            if (r.message && r.message.Transfers) {
+                var transfers = r.message.Transfers;
+
+                // Clear existing items before populating (optional)
+                frm.clear_table('cash_transfers');
+
+                // Loop through each invoice in the response
+                for (var i = 0; i < transfers.length; i++) {
+                    var transfer = transfers[i];
+                    // Loop through each item in the invoice
+
+                    var new_item = frm.add_child('cash_transfers'); // Create a new child row
+                    // Set values from item to new item fields
+                    new_item.transfer_id = transfer['Transfer Name'];
+                    new_item.actual_date = transfer['Posting Date'];
+                    new_item.account_banked_to = transfer['Paid To'];
+                    new_item.account_paid_from = transfer['Paid From'];
+                    new_item.amount_banked = transfer['Paid Amount'];
+                   // Add other relevant fields based on your data structure
+             
+                    frm.refresh_field('cash_transfers'); // Refresh the child table view after each item
+                
+                }
+            } else {
+                frappe.msgprint("No valid invoices found in response.");
+            }
+        },
+        error: function(xhr, textStatus, error) {
+            console.error('Error fetching transfers:', error);
+            frappe.msgprint('Error fetching transfers. Please try again.');
+        }
+    });
+}
+
+
+
+function populateExpenditureTable344(frm) {
+    frappe.call({
+        method: 'petro_station_app.custom_api.invoice.get_expense_totals',
+        args: {
+            cost_center: frm.doc.station,
+            posting_date: frm.doc.from_date,
+        },
+        callback: function(r) {
+            // console.log(r);
+            if (r.message && r.message.Expenses) {
+                var expenses = r.message.Expenses;
+
+                // Clear existing items before populating
+                frm.clear_table('expenditures');
+
+                // Loop through each expense in the response
+                for (var i = 0; i < expenses.length; i++) {
+                    var expense = expenses[i];
+                    var items = expense.Items; // Assuming Items is an array
+
+                    // Loop through each item in the expense
+                    for (var j = 0; j < items.length; j++) {
+                        var item = items[j];
+                        var new_item = frm.add_child('expenditures'); // Create a new child row
+
+                        // Set values from item to new item fields
+                        new_item.expense_id = expense['Expense Name'];
+                        new_item.actual_date = expense['Posting Date'];
+                        new_item.account_paid_from = item['Amount'];
+                        new_item.description = item['Description'];
+                        // Add other relevant fields based on your data structure
+
+                        frm.refresh_field('expenditures'); // Refresh the child table view after each item
+                    }
+                }
+            } else {
+                frappe.msgprint("No valid expenses found in response.");
+            }
+        },
+        error: function(xhr, textStatus, error) {
+            console.error('Error fetching expenses:', error);
+            frappe.msgprint('Error fetching expenses. Please try again.');
+        }
+    });
+}

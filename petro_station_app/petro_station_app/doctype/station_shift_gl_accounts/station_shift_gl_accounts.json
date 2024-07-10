@@ -23,7 +23,7 @@
    "fieldname": "amount_recived",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Amount Recived"
+   "label": "Amount Received Today"
   },
   {
    "allow_on_submit": 1,
@@ -36,13 +36,13 @@
    "fieldname": "amount_spent",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Amount Spent"
+   "label": "Amount Out"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-04 17:03:20.082016",
+ "modified": "2024-07-07 22:18:47.076390",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Station Shift GL Accounts",

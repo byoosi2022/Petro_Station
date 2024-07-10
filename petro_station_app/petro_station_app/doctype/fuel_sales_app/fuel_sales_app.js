@@ -28,8 +28,7 @@ frappe.ui.form.on('Fuel Sales App', {
                 });
             });
         }
-        calculate_and_validate_percentage_discount(frm);
-    },
+       },
     additional_discount_amount: function(frm) {
         calculate_and_validate_percentage_discount(frm);
     },
@@ -79,7 +78,7 @@ function calculate_and_validate_percentage_discount(frm) {
     calculate_percentage_discount(frm);
 
     // Get percentage discount value
-    let percentage_discount_value = parseFloat(frm.doc.percentage_discount);
+    let percentage_discount_value = parseFloat(frm.doc.percentge_discount);
 
     // Validate if percentage discount exceeds 10%
     if (percentage_discount_value > 10) {
@@ -88,12 +87,12 @@ function calculate_and_validate_percentage_discount(frm) {
     }
 
     // Save the form
-    frm.save()
-        .then(() => {
-            frappe.msgprint(__('Percentage Discount calculated and saved.'));
-        })
-        .catch(err => {
-            frappe.msgprint(__('There was an error saving the document.'));
-            console.error(err);
-        });
+    // frm.save()
+    //     .then(() => {
+    //         frappe.msgprint(__('Percentage Discount calculated and saved.'));
+    //     })
+    //     .catch(err => {
+    //         frappe.msgprint(__('There was an error saving the document.'));
+    //         console.error(err);
+    //     });
 }

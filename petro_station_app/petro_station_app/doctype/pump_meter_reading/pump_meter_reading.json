@@ -20,7 +20,8 @@
   "pump_date",
   "pump",
   "current_reading_value",
-  "amended_from"
+  "amended_from",
+  "stock_entry_transfer_id"
  ],
  "fields": [
   {
@@ -39,7 +40,6 @@
    "fieldtype": "Link",
    "label": "Branch",
    "options": "Cost Center",
-   "read_only": 1,
    "reqd": 1
   },
   {
@@ -111,12 +111,18 @@
    "fieldname": "pump_date",
    "fieldtype": "Date",
    "label": "Pump Date"
+  },
+  {
+   "fieldname": "stock_entry_transfer_id",
+   "fieldtype": "Link",
+   "label": "Stock Entry Transfer ID",
+   "options": "Stock Entry"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-02 20:15:13.470971",
+ "modified": "2024-07-10 01:28:48.715676",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Pump Meter Reading",

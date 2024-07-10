@@ -28,6 +28,7 @@
   "percentaget_discount",
   "section_break_zuwz",
   "get_bankings_and_cash",
+  "get_for_todaty",
   "accounts",
   "section_break_wool",
   "amended_from",
@@ -35,8 +36,12 @@
   "section_break_aadq",
   "attendance",
   "tab_3_tab",
+  "get_invoice_details",
   "invoice_items",
-  "cash_transfers"
+  "get_all_transfers_for_today",
+  "cash_transfers",
+  "get_all_expense_for_today",
+  "expenditures"
  ],
  "fields": [
   {
@@ -54,6 +59,7 @@
    "search_index": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "from_date",
    "fieldtype": "Date",
    "in_filter": 1,
@@ -91,6 +97,9 @@
   {
    "fieldname": "station",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Station",
    "options": "Cost Center"
   },
@@ -196,23 +205,52 @@
    "label": "Invoice"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "invoice_items",
    "fieldtype": "Table",
    "label": "Invoice Items",
    "options": "Invoice Items"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "cash_transfers",
    "fieldtype": "Table",
    "label": "Cash Transfers",
    "options": "Cash Transfers"
+  },
+  {
+   "fieldname": "get_for_todaty",
+   "fieldtype": "Button",
+   "label": "Get for Todaty"
+  },
+  {
+   "fieldname": "get_invoice_details",
+   "fieldtype": "Button",
+   "label": "Get Invoice Details"
+  },
+  {
+   "fieldname": "get_all_transfers_for_today",
+   "fieldtype": "Button",
+   "label": "Get All Transfers for today"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "expenditures",
+   "fieldtype": "Table",
+   "label": "Expenditures",
+   "options": "Expenditures"
+  },
+  {
+   "fieldname": "get_all_expense_for_today",
+   "fieldtype": "Button",
+   "label": "Get all expense for Today"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2024-07-04 17:04:02.555622",
+ "modified": "2024-07-08 15:26:53.387146",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Station Shift Management",

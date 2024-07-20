@@ -17,6 +17,7 @@
   "column_break_djzw",
   "naming_series",
   "dipping_date",
+  "dipping_time",
   "date",
   "employee",
   "employee_name",
@@ -48,14 +49,12 @@
   {
    "fieldname": "current_acty_qty",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Current Actual Qty",
    "read_only": 1
   },
   {
    "fieldname": "current_dipping_level",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Curent Dipping Level",
    "reqd": 1
   },
@@ -99,6 +98,8 @@
   {
    "fieldname": "branch",
    "fieldtype": "Link",
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Branch",
    "options": "Cost Center",
    "reqd": 1
@@ -116,14 +117,24 @@
   {
    "fieldname": "dipping_date",
    "fieldtype": "Date",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Dipping Date ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "dipping_time",
+   "fieldtype": "Time",
+   "label": "Dipping Time",
    "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-04 02:27:38.547213",
+ "modified": "2024-07-20 13:12:27.562668",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Dipping Log",

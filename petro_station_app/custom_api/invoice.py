@@ -13,6 +13,7 @@ def get_sales_invoices_with_totals(cost_center=None, posting_date=None):
             filters["cost_center"] = cost_center
         if posting_date:
             filters["posting_date"] = posting_date
+            
 
         # Fetch sales invoices with specified fields
         sales_invoices = frappe.get_all(
@@ -120,7 +121,6 @@ def get_sales_invoices_with_totals(cost_center=None, posting_date=None):
 
         # Log final result
         frappe.logger().info(f"Final result: {result}")
-
         # Return the list of invoices with items and totals
         return result
 

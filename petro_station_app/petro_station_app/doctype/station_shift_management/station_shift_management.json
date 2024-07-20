@@ -15,6 +15,7 @@
   "to_time",
   "naming_series",
   "get_pump_details",
+  "get_all_shift_details",
   "status",
   "section_break_sidz",
   "items",
@@ -244,13 +245,18 @@
    "fieldname": "get_all_expense_for_today",
    "fieldtype": "Button",
    "label": "Get all expense for Today"
+  },
+  {
+   "fieldname": "get_all_shift_details",
+   "fieldtype": "Button",
+   "label": "Get ALL Shift Details"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2024-07-08 15:26:53.387146",
+ "modified": "2024-07-16 12:24:25.261225",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Station Shift Management",

@@ -101,13 +101,20 @@ frappe.ui.form.on('Station Shift Management', {
                 }
             }
         });
-        
-
-
-    },
+        populateInvoiceItems(frm);
+            
+        populateCashTransferTable(frm);
+  
+    
+        populateExpenditureTable344(frm);
+  },
     get_pump_details: function(frm) {
         fetchSalesDetails(frm);
     },
+    get_all_shift_details: function(frm) {
+        populateInvoiceItemsStockEntry(frm);
+    },
+    
     get_bankings_and_cash: function(frm) {
         // getBankingandCash(frm);
         getBankingandCashwithoutdate(frm);
@@ -537,7 +544,7 @@ function populateInvoiceItems(frm) {
             posting_date: frm.doc.from_date,
         },
         callback: function(r) {
-            // console.log(r)
+            console.log(r)
             if (r.message && r.message.Invoices) {
                 var invoices = r.message.Invoices;
 
@@ -666,6 +673,133 @@ function populateExpenditureTable344(frm) {
         error: function(xhr, textStatus, error) {
             console.error('Error fetching expenses:', error);
             frappe.msgprint('Error fetching expenses. Please try again.');
+        }
+    });
+}
+
+
+// function populateInvoiceItemsStockEntry(frm) {
+//     frappe.call({
+//         method: 'petro_station_app.custom_api.invoice_stock.get_sales_invoices_with_totals',
+//         args: {
+//             cost_center: frm.doc.station,
+//             posting_date: frm.doc.from_date,
+//         },
+//         callback: function(r) {
+//             console.log(items)
+//             if (r.message && r.message.Invoices) {
+//                 var invoices = r.message.Invoices;
+
+//                 // Clear existing items before populating (optional)
+//                 frm.clear_table('invoice_items');
+
+//                 // Loop through each invoice in the response
+//                 for (var i = 0; i < invoices.length; i++) {
+//                     var invoice = invoices[i];
+//                     var items = invoice.Items; // Assuming Items is an array
+                    
+//                     // Loop through each item in the invoice
+//                     for (var j = 0; j < items.length; j++) {
+//                         var item = items[j];
+//                         var new_item = frm.add_child('invoice_items'); // Create a new child row
+
+
+//                         // Set values from item to new item fields
+//                         new_item.invoice_id = invoice['Invoice Name'];
+//                         new_item.date = invoice['Posting Date'];
+//                         new_item.customer_name = invoice['Customer Name'];
+//                         new_item.customer = invoice['Customer'];
+//                         new_item.item_code = item['Item Code'];
+//                         new_item.quantity = item['Quantity'];
+//                         new_item.amount = item['Amount'];
+//                         // Add other relevant fields based on your data structure
+
+//                         frm.refresh_field('invoice_items'); // Refresh the child table view after each item
+//                     }
+//                 }
+//             } else {
+//                 frappe.msgprint("No valid invoices found in response.");
+//             }
+//         },
+//         error: function(xhr, textStatus, error) {
+//             console.error('Error fetching invoices:', error);
+//             frappe.msgprint('Error fetching invoices. Please try again.');
+//         }
+//     });
+// }
+
+
+
+function populateInvoiceItemsStockEntry(frm) {
+    // Clear specific fields in existing items
+    frm.doc.items.forEach(item => {
+        item.qty_based_on_sales = null;
+        item.sales_based_on_invoices = null;
+        item.pump_rate = null;
+        item.sales_based_on_meter_reading = null;
+        item.difference_amount = null;
+    });
+
+    let pumpOrTankList = frm.doc.items.map(item => item.pump_or_tank);
+
+    frappe.call({
+        method: "petro_station_app.custom_api.invoice_stock.get_total_qty_and_amount",
+        args: {
+            station: frm.doc.station,
+            status: frm.doc.status,
+            from_date: frm.doc.from_date,
+            to_date: frm.doc.to_date,
+            pump_or_tank_list: pumpOrTankList // Pass the list of pump_or_tank values
+        },
+        callback: function(response) {
+            if (response && response.message) {
+                console.log(response.message);
+                if (Object.keys(response.message.warehouses).length === 0) {
+                    frappe.msgprint(__('No Data Found'));
+                } else {
+                    // Update specific fields with new data
+                    frm.doc.items.forEach(item => {
+                        if (response.message.warehouses[item.pump_or_tank]) {
+                            let warehouseData = response.message.warehouses[item.pump_or_tank];
+                            item.qty_based_on_sales = warehouseData.qty;
+                            item.sales_based_on_invoices = warehouseData.amount;
+                            item.pump_rate = warehouseData.average_rate;
+                            item.sales_based_on_meter_reading = item.pump_rate * item.qty_sold_on_meter_reading;
+                            item.difference_amount = item.sales_based_on_meter_reading - item.sales_based_on_invoices;
+                        } else {
+                            item.qty_based_on_sales = null;
+                            item.sales_based_on_invoices = null;
+                            item.pump_rate = null;
+                            item.sales_based_on_meter_reading = null;
+                            item.difference_amount = null;
+                        }
+                    });
+
+                    // Refresh the items table to reflect the changes
+                    let percentaget_discount = ((response.message.additional_discount_amount / response.message.grand_total) * 100).toFixed(2) + '%';
+                    // Set and refresh the specified fields
+                    frm.set_value('total_discount', response.message.additional_discount_amount);
+                    frm.refresh_field('total_discount');
+                    frm.set_value('total_sales', response.message.grand_total);
+                    frm.refresh_field('total_sales');
+                    frm.set_value('total_credit_sales', response.message.outstanding_amount);
+                    frm.refresh_field('total_credit_sales');
+                    frm.set_value('total_cash_sales', response.message.total_payments);
+                    frm.refresh_field('total_cash_sales');
+                    frm.set_value('percentaget_discount', percentaget_discount);
+                    frm.refresh_field('percentaget_discount');
+                    frm.refresh_field("items");
+                    
+                }
+            } else {
+                // Handle error or unexpected response
+                frappe.msgprint(__('Error fetching data. Please try again later.'));
+            }
+        },
+        error: function(err) {
+            // Handle server call error
+            console.log(err);
+            frappe.msgprint(__('Error fetching data. Please try again later.'));
         }
     });
 }

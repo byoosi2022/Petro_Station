@@ -13,6 +13,7 @@
   "station",
   "naming_series",
   "section_break_enmu",
+  "get_banking_for_today",
   "items",
   "total_money_banked"
  ],
@@ -74,12 +75,19 @@
    "fieldtype": "Select",
    "label": "Series",
    "options": "PSA-BD-.YYYY.-"
+  },
+  {
+   "fieldname": "get_banking_for_today",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Get Banking For Today"
   }
  ],
+ "in_create": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-10 03:09:10.677931",
+ "modified": "2024-07-13 13:04:17.603513",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Bank Deposits",
@@ -98,9 +106,38 @@
    "share": 1,
    "submit": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
   }
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "station"
 }

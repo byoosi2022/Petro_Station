@@ -417,7 +417,7 @@ def get_system_reading(pump,from_date):
     filters = {
         "docstatus": 1,
         "pump": pump,
-        "sales_invoice_posting_date": from_date,
+        "pump_date": from_date,
     }
     system_meter_readings = frappe.get_list(
         "Pump Meter Reading",

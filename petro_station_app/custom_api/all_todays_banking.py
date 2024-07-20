@@ -1,8 +1,10 @@
 import frappe
 
 @frappe.whitelist()
-def update_bank_deposits(doc, method=None):
+def update_bank_deposits(docname, method=None):
     try:
+        doc = frappe.get_doc("Payment Entry", docname)
+
         if method == "on_cancel":
             cancel_bank_deposits(doc)
             return
@@ -22,12 +24,9 @@ def update_bank_deposits(doc, method=None):
             bank_deposit.submit()  # Submit the new document
 
         # Get all payment entries for the given posting date and cost center
-        payment_entries = frappe.get_all("Payment Entry", filters={"posting_date": posting_date, "cost_center": doc.cost_center, "docstatus": ["!=", 2]}, fields=["name", "paid_to", "paid_amount", "docstatus", "custom_bank_deposits_status"])
+        payment_entries = frappe.get_all("Payment Entry", filters={"posting_date": posting_date, "cost_center": doc.cost_center, "docstatus": ["!=", 2]}, fields=["name", "paid_to", "paid_amount", "docstatus"])
 
         for pe in payment_entries:
-            if pe.custom_bank_deposits_status == "Deposits Made":
-                continue  # Skip entries that have already been processed
-
             account = frappe.get_doc("Account", pe.paid_to)
             if account.account_type == "Bank":
                 account_exists = False
@@ -46,9 +45,6 @@ def update_bank_deposits(doc, method=None):
                         "bank": pe.paid_to,
                         "amount_banked": -pe.paid_amount if pe.docstatus == 2 else pe.paid_amount
                     })
-
-            # Update Payment Entry with custom_bank_deposits_status
-            frappe.db.set_value("Payment Entry", pe.name, "custom_bank_deposits_status", "Deposits Made")
 
         # Calculate total money banked
         total_money_banked = sum(item.amount_banked for item in bank_deposit.items if item.amount_banked > 0)
@@ -98,13 +94,13 @@ def update_bank_deposits_for_cost_center(cost_center):
 
     for pe in payment_entries:
         doc = frappe.get_doc("Payment Entry", pe.name)
-        update_bank_deposits(doc)
+        update_bank_deposits(doc.name)
 
 # Example function to update bank deposits for a specific Payment Entry
 @frappe.whitelist()
 def update_bank_deposits_for_payment_entry(payment_entry_name):
     doc = frappe.get_doc("Payment Entry", payment_entry_name)
-    update_bank_deposits(doc)
+    update_bank_deposits_for_cost_center(doc.cost_center)
 
 # Example usage:
 # update_bank_deposits_for_payment_entry('PAYMENT-ENTRY-NAME')

@@ -1,6 +1,11 @@
 // Copyright (c) 2024, mututa paul and contributors
 // For license information, please see license.txt
 frappe.ui.form.on("Bank Deposits", {
+    get_banking_for_today: function(frm) {
+        AllTodaysBanking(frm);
+        // getBankingandCashwithoutdate(frm);
+    },
+    
     before_save: function(frm) {
         // Clear existing items before populating (optional)
         frm.clear_table('items');
@@ -33,4 +38,21 @@ frappe.ui.form.on("Bank Deposits", {
         });
     }
 });
+
+
+function AllTodaysBanking(frm) {
+
+    frappe.call({
+        method: "petro_station_app.custom_api.all_todays_banking.update_bank_deposits",
+        args: {
+            doc: frm.doc
+        },
+        callback: function(r) {
+            if (r.message) {
+                frm.reload_doc();
+            }
+        }
+    });
+        
+}
 

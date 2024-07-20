@@ -14,8 +14,9 @@ class PurchaseManagement(Document):
         self.create_purchase_receipt()
         self.create_purchase_invo_receipt()
         self.create_purchase_invoice()
-        self.create_stock_transfer()
         self.create_landed_cost_voucher()
+        self.create_stock_transfer()
+       
 
     def create_purchase_receipt(self):
         existing_receipt = frappe.get_all("Purchase Receipt", filters={"custom_purchase_management_id": self.name}, limit=1)

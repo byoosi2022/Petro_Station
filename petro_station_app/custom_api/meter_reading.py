@@ -6,7 +6,7 @@ def create_pump_meter_reading(doc, method):
     try:
         if doc.doctype == "Sales Invoice":
             if method == "on_cancel":
-                cancel_stock_entry_meter_reading(doc)
+                cancel_pump_meter_reading(doc)
                 return
 
             # Get the source warehouse (pump) for each item
@@ -66,52 +66,46 @@ def create_pump_meter_reading(doc, method):
         frappe.log_error(_("Error creating Pump Meter Reading: {0}").format(e))
         frappe.throw(_("Error creating Pump Meter Reading. Please try again."))
 
-def cancel_stock_entry_meter_reading(doc):
+def cancel_pump_meter_reading(doc):
     try:
-        if doc.doctype == "Stock Entry":
-            if doc.stock_entry_type == "Material Transfer":
-                source_warehouses = set([
-                    item.get("s_warehouse")
-                    for item in doc.get("items")
-                    if frappe.get_value("Warehouse", item.get("s_warehouse"), "warehouse_type") == "Pump"
-                ])
+        if doc.doctype == "Sales Invoice":
+            # Get the source warehouse (pump) for each item
+            source_warehouses = set([item.get("warehouse") for item in doc.get("items")])
 
-                for source_warehouse in source_warehouses:
-                    fuel_items = [
-                        item for item in doc.get("items")
-                        if item.get("item_group") == "Fuel" and item.get("s_warehouse") == source_warehouse
-                    ]
+            for source_warehouse in source_warehouses:
+                # Filter out items that do not have the item group "Fuel" for the current warehouse
+                fuel_items = [item for item in doc.get("items") if item.get("item_group") == "Fuel" and item.get("warehouse") == source_warehouse]
 
-                    if fuel_items:
-                        total_quantity = sum([item.get("qty") for item in fuel_items])
+                if fuel_items:
+                    # Get the total quantity for the current item
+                    total_quantity = sum([item.get("qty") for item in fuel_items])
 
-                        meter_reading = frappe.get_all(
-                            "Meter Readings", filters={"pump": source_warehouse},
-                            fields=["initial_reading_value", "present_reading_value"]
-                        )
+                    # Get the present reading value from the Meter Readings doctype
+                    meter_reading = frappe.get_all("Meter Readings", filters={"pump": source_warehouse}, fields=["initial_reading_value", "present_reading_value"])
 
-                        if meter_reading:
-                            present_reading_value = meter_reading[0].get("present_reading_value")
-                            initial_reading_value = meter_reading[0].get("initial_reading_value")
-                        else:
-                            present_reading_value = 0
-                            initial_reading_value = 0
+                    if meter_reading:
+                        present_reading_value = meter_reading[0].get("present_reading_value")
+                        initial_reading_value = meter_reading[0].get("initial_reading_value")
+                    else:
+                        present_reading_value = 0
+                        initial_reading_value = 0
 
-                        if not present_reading_value:
-                            current_reading_value = initial_reading_value - total_quantity
-                        else:
-                            current_reading_value = present_reading_value - total_quantity
+                    if not present_reading_value:
+                        current_reading_value = initial_reading_value - total_quantity
+                    else:
+                        current_reading_value = present_reading_value - total_quantity
 
-                        qty_pernow = current_reading_value - initial_reading_value
+                    qty_pernow = current_reading_value - initial_reading_value
 
-                        frappe.db.set_value("Meter Readings", {"pump": source_warehouse}, {
-                            "present_reading_value": current_reading_value,
-                            "qty_as_per_now": qty_pernow,
-                            "current_date": now_datetime()
-                        })
+                    # Update Meter Reading with current_reading_value
+                    frappe.db.set_value("Meter Readings", {"pump": source_warehouse}, {
+                        "present_reading_value": current_reading_value,
+                        "qty_as_per_now": qty_pernow,
+                        "current_date": now_datetime()
+                    })
 
-            frappe.msgprint(_("Pump Meter Reading updated successfully"))
+            frappe.msgprint(_("Meter Reading updated successfully"))
 
     except Exception as e:
-        frappe.log_error(_("Error updating Pump Meter Reading on stock entry cancel: {0}").format(e))
-        frappe.throw(_("Error updating Pump Meter Reading on stock entry cancel. Please try again."))
+        frappe.log_error(_("Error updating Pump Meter Reading on cancel: {0}").format(e))
+        frappe.throw(_("Error updating Pump Meter Reading on cancel. Please try again."))

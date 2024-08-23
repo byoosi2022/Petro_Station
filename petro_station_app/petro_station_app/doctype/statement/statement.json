@@ -1,0 +1,127 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "PSA-STMENT-.YYYY.-.#####",
+ "creation": "2024-08-22 14:50:38.363226",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "customer_name",
+  "tel",
+  "column_break_uash",
+  "from_date",
+  "to_date",
+  "cost_center",
+  "section_break_labx",
+  "statement_details",
+  "section_break_hhat",
+  "total_invoices",
+  "total_outstanding_amount",
+  "column_break_srsb",
+  "total_paid"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "tel",
+   "fieldtype": "Phone",
+   "label": "Tel"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "section_break_labx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "statement_details",
+   "fieldtype": "Table",
+   "label": "Statement Details",
+   "options": "Invoice Table Statement"
+  },
+  {
+   "fieldname": "column_break_uash",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_invoices",
+   "fieldtype": "Currency",
+   "label": "Total Invoices",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_paid",
+   "fieldtype": "Currency",
+   "label": "Total Paid",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_outstanding_amount",
+   "fieldtype": "Currency",
+   "label": "Total Outstanding Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_hhat",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_srsb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Station",
+   "options": "Cost Center"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-08-23 09:47:23.898019",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Statement",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "customer_name"
+}

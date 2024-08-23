@@ -752,8 +752,9 @@ function populateInvoiceItemsStockEntry(frm) {
             pump_or_tank_list: pumpOrTankList // Pass the list of pump_or_tank values
         },
         callback: function(response) {
+            console.log(response);
             if (response && response.message) {
-                console.log(response.message);
+                console.log(pumpOrTankList);
                 if (Object.keys(response.message.warehouses).length === 0) {
                     frappe.msgprint(__('No Data Found'));
                 } else {

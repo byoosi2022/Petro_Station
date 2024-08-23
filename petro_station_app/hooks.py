@@ -153,6 +153,11 @@ doc_events = {
         "on_submit": "petro_station_app.custom_api.update_item_price.update_item_price"
     },
     
+    "Purchase Management": {
+      
+        "on_update": "petro_station_app.custom_api.purchase_management.create_petro_currency_exchange"
+    },
+    
     "Stock Entry": {
       
         "on_submit": "petro_station_app.custom_api.meter_reading_stock_entry.create_pump_meter_reading",

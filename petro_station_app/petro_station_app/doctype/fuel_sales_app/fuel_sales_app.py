@@ -1,6 +1,6 @@
-from frappe.model.document import Document
-import frappe
-from frappe import _
+from frappe.model.document import Document # type: ignore
+import frappe # type: ignore
+from frappe import _ # type: ignore
 
 class FuelSalesApp(Document):
 
@@ -56,7 +56,7 @@ class FuelSalesApp(Document):
             sales_invoice.posting_time = self.time
             sales_invoice.additional_discount_account = "5125 - Discounts on Fuel - FEU"
             sales_invoice.custom_fuel_sales_app_id = self.name
-
+            remarks = ""
             for item in self.items:
                 sales_invoice.append("items", {
                     "item_code": item.item_code,
@@ -66,7 +66,12 @@ class FuelSalesApp(Document):
                     "amount": item.amount,
                     "custom_vehicle_plates": item.number_plate
                 })
-
+                # Append each item's details to the remarks string
+                if item.number_plate:
+                    remarks += f"Item: {item.item_code}, Quantity: {item.qty}, Amount: {item.amount}, Vehicle Plate: {item.number_plate}\n"
+             # Set the accumulated remarks in the Sales Invoice
+            sales_invoice.remarks = remarks
+               
             if sales_invoice.items:
                 sales_invoice.insert()
                 sales_invoice.submit()

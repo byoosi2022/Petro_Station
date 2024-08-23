@@ -131,10 +131,11 @@
    "reqd": 1
   }
  ],
+ "in_create": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-20 13:12:27.562668",
+ "modified": "2024-07-20 14:47:26.502480",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Dipping Log",

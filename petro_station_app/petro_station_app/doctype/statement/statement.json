@@ -17,9 +17,9 @@
   "statement_details",
   "section_break_hhat",
   "total_invoices",
-  "total_outstanding_amount",
-  "column_break_srsb",
-  "total_paid"
+  "total_paid",
+  "column_break_sgqm",
+  "total_outstanding_amount"
  ],
  "fields": [
   {
@@ -87,20 +87,20 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "column_break_srsb",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "cost_center",
    "fieldtype": "Link",
    "hidden": 1,
    "label": "Station",
    "options": "Cost Center"
+  },
+  {
+   "fieldname": "column_break_sgqm",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-23 09:47:23.898019",
+ "modified": "2024-08-24 10:03:03.444124",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Statement",

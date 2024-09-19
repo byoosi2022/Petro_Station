@@ -252,6 +252,19 @@ def get_details_cost_center(station):
     )
     return from_warehouse
 
+@frappe.whitelist()
+def get_details_tanks(station):
+    # Get warehouses with the specified cost center and warehouse types
+    from_warehouse = frappe.get_all(
+        "Warehouse",
+        filters={
+            "custom_cost_centre": station,
+            "warehouse_type": ["in", ["Transit"]]
+        },
+        fields=["name","custom_tank_item"]
+    )
+    return from_warehouse
+
 
 
 @frappe.whitelist()

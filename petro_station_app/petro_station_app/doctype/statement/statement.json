@@ -6,19 +6,22 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "section_break_xbft",
   "customer",
   "customer_name",
   "tel",
   "column_break_uash",
   "from_date",
   "to_date",
-  "cost_center",
   "section_break_labx",
   "statement_details",
   "section_break_hhat",
-  "total_invoices",
+  "balance_forward",
   "total_paid",
+  "update_discount",
   "column_break_sgqm",
+  "total_invoices",
+  "additional_discount_amount",
   "total_outstanding_amount"
  ],
  "fields": [
@@ -45,7 +48,8 @@
   },
   {
    "fieldname": "section_break_labx",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "ignore_user_permissions": 1
   },
   {
    "fieldname": "statement_details",
@@ -84,23 +88,38 @@
   },
   {
    "fieldname": "section_break_hhat",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "cost_center",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Station",
-   "options": "Cost Center"
+   "fieldtype": "Section Break",
+   "ignore_user_permissions": 1
   },
   {
    "fieldname": "column_break_sgqm",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_xbft",
+   "fieldtype": "Section Break",
+   "ignore_user_permissions": 1
+  },
+  {
+   "fieldname": "balance_forward",
+   "fieldtype": "Currency",
+   "label": "Balance B/F"
+  },
+  {
+   "fieldname": "additional_discount_amount",
+   "fieldtype": "Currency",
+   "label": "Additional Discount Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "update_discount",
+   "fieldtype": "Button",
+   "label": "Update Discount/Outstanding"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-24 10:03:03.444124",
+ "modified": "2024-09-07 18:46:32.596686",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Statement",
@@ -116,6 +135,33 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "select": 1,
    "share": 1,
    "write": 1
   }
@@ -123,5 +169,8 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "customer_name"
+ "title_field": "customer_name",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }

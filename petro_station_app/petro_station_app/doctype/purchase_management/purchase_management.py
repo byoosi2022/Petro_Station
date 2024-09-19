@@ -54,6 +54,7 @@ class PurchaseManagement(Document):
                 purchase_receipt_entry.append("items", {
                     "item_code": item.item,
                     "qty": item.qty,
+                    "rate": item.rate,
                     "warehouse": item.warehouse,
                     "cost_center": item.cost_center
                 })
@@ -160,32 +161,59 @@ class PurchaseManagement(Document):
                 frappe.msgprint(_("Purchase Invoice created for supplier: {0}, currency: {1}").format(supplier, currency))
 
     def create_stock_transfer(self):
-        existing_stock_entry = frappe.get_all("Stock Entry", filters={"custom_purchase_management_id": self.name}, limit=1)
-        if existing_stock_entry:
-            frappe.msgprint(_("Stock Entry already exists for this Purchase Management ID"))
+        # Group items by target store
+        if not self.stock_items:
+            frappe.msgprint(_("No items to transfer"), alert=True)
             return
-
-        stock_entry = frappe.new_doc("Stock Entry")
-        stock_entry.stock_entry_type = "Material Transfer"
-        stock_entry.set_posting_time = 1
-        stock_entry.posting_time = self.time
-        stock_entry.posting_date = self.date
-        stock_entry.custom_purchase_management_id = self.name
-
+        target_store_map = {}
         for item in self.stock_items:
-            stock_entry.append("items", {
-                "item_code": item.item,
-                "qty": item.qty,
-                "s_warehouse": item.accepted_warehouse,
-                "t_warehouse": item.target_store,
-                "cost_center": item.cost_center
-            })
+            if item.target_store:
+                if item.target_store not in target_store_map:
+                    target_store_map[item.target_store] = []
+                target_store_map[item.target_store].append(item)
 
-        if stock_entry.items:
-            stock_entry.insert()
-            stock_entry.submit()
-            frappe.db.commit()
-            frappe.msgprint(_("Stock Transfer created"))
+        # Create a Stock Entry for each target store
+        for target_store, items in target_store_map.items():
+            existing_stock_entry = frappe.get_all("Stock Entry", filters={"custom_purchase_management_id": self.name, "t_warehouse": target_store}, limit=1)
+            if existing_stock_entry:
+                frappe.msgprint(_("Stock Entry already exists for target store {0}").format(target_store))
+                continue
+
+            # Create new Stock Entry for the current target store
+            stock_entry = frappe.new_doc("Stock Entry")
+            stock_entry.stock_entry_type = "Material Transfer"
+            stock_entry.set_posting_time = 1  # Allow setting of custom posting time
+        
+            # Use the date and time from the first valid item in this group
+            stock_entry.posting_date = items[0].date if items[0].date else frappe.utils.today()
+            stock_entry.posting_time = items[0].time if items[0].time else frappe.utils.nowtime()
+            stock_entry.custom_purchase_management_id = self.name
+            stock_entry.t_warehouse = target_store
+
+            # Add items to the stock entry
+            for item in items:
+                if item.qty > 0 and item.accepted_warehouse:  # Ensure valid qty and source warehouse
+                    stock_entry.append("items", {
+                        "item_code": item.item,
+                        "qty": item.qty,
+                        "s_warehouse": item.accepted_warehouse,
+                        "t_warehouse": target_store,
+                        "cost_center": item.cost_center or self.cost_center  # Use item's cost center or default to Purchase Management's cost center
+                    })
+                else:
+                    frappe.msgprint(_("Skipping item {0} due to invalid qty or source warehouse").format(item.item), alert=True)
+
+            # Check if items were added before inserting and submitting the Stock Entry
+            if stock_entry.items:
+                try:
+                    stock_entry.insert()
+                    stock_entry.submit()
+                    frappe.db.commit()
+                    frappe.msgprint(_("Stock Transfer created for target store {0}").format(target_store))
+                except Exception as e:
+                    frappe.throw(_("An error occurred while creating Stock Transfer for target store {0}: {1}").format(target_store, str(e)))
+            else:
+                frappe.msgprint(_("No valid items to transfer for target store {0}").format(target_store), alert=True)
 
     def create_landed_cost_voucher(self):
         existing_lcv = frappe.get_all("Landed Cost Voucher", filters={"custom_purchase_management_id": self.name}, limit=1)

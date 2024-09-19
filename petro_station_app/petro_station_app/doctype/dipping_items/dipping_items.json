@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-19 03:39:11.063227",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "tank",
+  "dipping_qty",
+  "current_qty",
+  "valuation_rate",
+  "dipping_status"
+ ],
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "link_filters": "[[\"Item\",\"item_group\",\"=\",\"Fuel\"]]",
+   "options": "Item"
+  },
+  {
+   "fieldname": "tank",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Tank",
+   "link_filters": "[[\"Warehouse\",\"warehouse_type\",\"=\",\"Transit\"]]",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "dipping_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Dipping Qty"
+  },
+  {
+   "fieldname": "current_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Qty"
+  },
+  {
+   "fieldname": "valuation_rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Valuation Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dipping_status",
+   "fieldtype": "Data",
+   "label": "Dipping Status"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-09-19 07:03:57.997143",
+ "modified_by": "Administrator",
+ "module": "Petro Station App",
+ "name": "Dipping Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -7,6 +7,26 @@ def get_sales_invoice_details_and_payments(customer, from_date, to_date):
     total_paid_amount = 0
     grand_total_amount = 0  # Variable to hold the grand total of all amounts
     running_balance = 0      # Variable to hold the running balance
+    balance_brought_forward = 0  # Variable to hold the balance brought forward
+
+    # Calculate Balance Brought Forward (balance before the 'from_date')
+    previous_balance = frappe.db.sql("""
+        SELECT 
+            SUM(gle.debit - gle.credit) AS balance
+        FROM 
+            `tabGL Entry` gle
+        WHERE 
+            gle.party_type = 'Customer'
+            AND gle.party = %s
+            AND gle.posting_date < %s
+            AND gle.docstatus = 1
+    """, (customer, from_date), as_dict=True)
+    
+    if previous_balance and previous_balance[0].balance:
+        balance_brought_forward = flt(previous_balance[0].balance)
+    
+    # Initialize running balance with balance brought forward
+    running_balance = balance_brought_forward
 
     # Step 1: Fetch Sales Invoices and their items for the specified customer and date range
     invoices = frappe.db.sql("""
@@ -32,12 +52,9 @@ def get_sales_invoice_details_and_payments(customer, from_date, to_date):
     """, (customer, from_date, to_date), as_dict=True)
 
     for invoice in invoices:
-        # Calculate the total amount for each invoice
         total_amount = flt(invoice.amount)
         grand_total_amount += total_amount  # Add to grand total
-        
-        # Calculate running balance
-        running_balance += total_amount
+        running_balance += total_amount  # Update running balance
         
         invoice_data = {
             "invoice_name": invoice.invoice_name,
@@ -53,7 +70,6 @@ def get_sales_invoice_details_and_payments(customer, from_date, to_date):
             "running_balance": running_balance  # Include running balance for each invoice
         }
         
-        # Add invoice data to the list
         sales_invoice_data.append(invoice_data)
 
     # Step 2: Fetch Payment Entries within the specified date range for the same customer
@@ -78,7 +94,7 @@ def get_sales_invoice_details_and_payments(customer, from_date, to_date):
         running_balance -= flt(payment.paid_amount)  # Subtract payment from running balance
         filtered_payments.append({
             "payment_entry_name": payment.payment_entry_name,
-            "cost_center":payment.cost_center,
+            "cost_center": payment.cost_center,
             "posting_date": payment.posting_date,  # Include posting date for payments
             "paid_amount": payment.paid_amount
         })
@@ -108,29 +124,24 @@ def get_sales_invoice_details_and_payments(customer, from_date, to_date):
         filtered_gl_entries.append({
             "gl_entry_name": gl_entry.gl_entry_name,
             "posting_date": gl_entry.posting_date,
-            "cost_center":gl_entry.cost_center,
+            "cost_center": gl_entry.cost_center,
             "voucher_no": gl_entry.voucher_no,
             "debit": flt(gl_entry.debit),
             "credit": flt(gl_entry.credit),
             "remarks": gl_entry.remarks
         })
 
-        # Update running balance: add debit amounts and credit amounts
+        # Update running balance: add debit amounts and subtract credit amounts
         running_balance += flt(gl_entry.debit)  # Add debit to running balance
+        running_balance -= flt(gl_entry.credit)  # Subtract credit from running balance
         total_paid_amount += flt(gl_entry.credit)  # Add credit to total paid
 
-    # Update grand total amount calculation
-    grand_total_amount += sum(flt(invoice.amount) for invoice in invoices)
-    
     # Calculate outstanding amount
     outstanding_amount = grand_total_amount - total_paid_amount
 
-    # Update running balance in each invoice data for consistency
-    for invoice in sales_invoice_data:
-        invoice["running_balance"] = running_balance
-
     return {
         "sales_invoice_data": sales_invoice_data,
+        "balance_brought_forward": balance_brought_forward,  # Include the balance brought forward
         "grand_total_amount": grand_total_amount,  # Return grand total of all amounts
         "total_paid_amount": total_paid_amount,
         "outstanding_amount": outstanding_amount,  # Return outstanding amount

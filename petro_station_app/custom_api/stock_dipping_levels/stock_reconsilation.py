@@ -2,7 +2,7 @@ import frappe
 from frappe.utils import nowdate
 
 @frappe.whitelist()
-def create_stock_reconciliation(items_data, posting_date, posting_time,station):
+def create_stock_reconciliation(items_data, posting_date, posting_time,station,docname):
     try:
         # Parse the JSON data for items (if passed as a string)
         items_data = frappe.parse_json(items_data)
@@ -17,6 +17,7 @@ def create_stock_reconciliation(items_data, posting_date, posting_time,station):
         stock_reconciliation.posting_date = posting_date  # Use provided posting date
         stock_reconciliation.posting_time = posting_time  # Use provided posting time
         stock_reconciliation.cost_center = station
+        stock_reconciliation.custom_shift_closing = docname
        
 
         # Loop through the items data and add rows to stock reconciliation
@@ -39,7 +40,7 @@ def create_stock_reconciliation(items_data, posting_date, posting_time,station):
 
         # Save and submit the Stock Reconciliation
         stock_reconciliation.save()
-        # stock_reconciliation.submit()  # Uncomment this to automatically submit the document
+        stock_reconciliation.submit()  # Uncomment this to automatically submit the document
 
         return {"status": "success", "message": f"Stock Reconciliation {stock_reconciliation.name} created successfully"}
 

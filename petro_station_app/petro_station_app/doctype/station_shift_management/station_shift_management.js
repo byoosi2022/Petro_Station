@@ -140,8 +140,13 @@ frappe.ui.form.on('Station Shift Management', {
     },
     get_dipping_levels: function (frm) {
         fetcheDippingLevels(frm);
+        
+        // postStockReconciliation(frm) 
+
+    },
+    get_drafts: function (frm) {
         fetchStockTransfersDraft(frm)
-        // postStockReconciliation(frm)
+        // postStockReconciliation(frm) get_drafts
 
     },
     transfer_fuel: function (frm) {
@@ -290,12 +295,6 @@ frappe.ui.form.on('Station Shift Management', {
 
 });
 
-
-
-
-
-
-
 frappe.ui.form.on('Station Shift Management item', {
     opening_meter_reading: function (frm, cdt, cdn) {
         calculateQtySold(frm, cdt, cdn);
@@ -306,6 +305,11 @@ frappe.ui.form.on('Station Shift Management item', {
     },
     pump_rate: function (frm, cdt, cdn) {
         calculateQtySold(frm, cdt, cdn);
+    }
+});
+frappe.ui.form.on('Dipping Items', {
+    dipping_qty: function (frm, cdt, cdn) {
+        calculateAmountOnDipping(frm, cdt, cdn);
     }
 });
 
@@ -449,7 +453,7 @@ function CalculateTotal(frm) {
         },
         callback: function (response) {
             if (response && response.message) {
-                console.log(response.message);
+                // console.log(response.message);
                 if (Object.keys(response.message).length === 0) {
                     frappe.msgprint(__('No Data Found'));
                 } else {
@@ -610,7 +614,7 @@ function populateInvoiceItems(frm) {
             posting_date: frm.doc.from_date,
         },
         callback: function (r) {
-            console.log(r)
+            // console.log(r)
             if (r.message && r.message.Invoices) {
                 var invoices = r.message.Invoices;
 
@@ -766,7 +770,7 @@ function populateInvoiceItemsStockEntry(frm) {
             pump_or_tank_list: pumpOrTankList // Pass the list of pump_or_tank values
         },
         callback: function (response) {
-            console.log(response);
+            // console.log(response);
             if (response && response.message) {
                 console.log(pumpOrTankList);
                 if (Object.keys(response.message.warehouses).length === 0) {
@@ -839,16 +843,21 @@ function fetcheDippingLevels(frm) {
                     posting_time: frm.doc.time,
                 },
                 callback: function (r) {
+                    console.log(r)
                     if (r.message) {
                         // Find the existing row in the 'dipping_details' child table
                         let existing_row = frm.doc.dipping_details.find(d => d.item === ItemList[i] && d.tank === TankList[i]);
-
-                        // If the row exists, update its values
+                        // If the row exists, update its values amount 
                         if (existing_row) {
                             existing_row.dipping_qty = r.message.qty;  // Update dipping quantity
                             existing_row.current_qty = r.message.qty;  // Update current quantity
                             existing_row.valuation_rate = r.message.rate;  // Update current quantity
-                            // Add any other fields that need to be updated
+                            existing_row.current_amount = r.message.qty * r.message.rate; 
+                            existing_row.amount = r.message.qty * r.message.rate;
+
+                            // tyry
+  
+                            // // Add any other fields that need to be updated
                         } else {
                             frappe.msgprint(`No matching row found for Item: ${ItemList[i]} and Tank: ${TankList[i]}`);
                         }
@@ -896,7 +905,8 @@ function postStockReconciliation(frm) {
             items_data: JSON.stringify(itemsData),  // Convert items data to a JSON string
             posting_date: frm.doc.from_date,
             posting_time: frm.doc.time,
-            station: frm.doc.station
+            station: frm.doc.station,
+            docname:frm.doc.name
         },
         callback: function (response) {
             if (response.message.status === "success") {
@@ -943,7 +953,7 @@ function fetchStockTransfersDraft(frm) {
                         new_item.tart_tank = entry.details[0].t_warehouse;    // Example: Assign cost center as tank
                         new_item.dipping_qty = entry.details[0].qty;      // Example: Assign quantity
                         new_item.status = "Draft";     // Example: Assign document status entry.status
-                        new_item.vourcher = entry.stock_entry;        // Example: Assign voucher number or name
+                        new_item.voucher = entry.stock_entry;        // Example: Assign voucher number or name
                         new_item.source_tank = entry.details[0].s_warehouse;
                         // Add other relevant fields here if needed
                     }
@@ -958,15 +968,19 @@ function fetchStockTransfersDraft(frm) {
 }
 
 function submitDraftStockEntries(frm) {
-    // Collect all voucher numbers from the child table
-    let voucherList = frm.doc.recieve_stock.map(item => item.voucher); // Ensure 'voucher' is the correct field name
-
+    // Collect all voucher details including received_date and time from the child table
+    let voucherList = frm.doc.recieve_stock.map(item => ({
+        voucher: item.voucher,             // Assuming 'voucher' is the correct field name
+        received_date: item.received_date, // Add the received_date from the child table
+        time_recieved: item.time_recieved   // Correct the field name for time
+    }));
+   
     // Check if any stock transfers are set to "Fuel Transferred"
     let allStatusSetFuelTransferred = frm.doc.recieve_stock.some(item => item.fuel_transfer_status === "Fuel Transferred");
-    
+
     // If any status is set to "Fuel Transferred", do not proceed with submission
     if (allStatusSetFuelTransferred) {
-        frappe.msgprint("Cannot Transfer fuel. All fuel transfers have been done.");
+        frappe.msgprint("Cannot transfer fuel. All fuel transfers have been done.");
         return;
     }
 
@@ -976,11 +990,15 @@ function submitDraftStockEntries(frm) {
         return;
     }
 
+    // Log the voucher list for debugging
+    console.log("Voucher List: ", voucherList);
+
     // Call the backend function to submit draft stock entries
     frappe.call({
         method: 'petro_station_app.custom_api.stock_dipping_levels.submit_vouchers.submit_draft_stock_entries',
         args: {
-            voucher_list: JSON.stringify(voucherList)  // Send as JSON string
+            voucher_list: JSON.stringify(voucherList), // Send voucher details as a JSON string
+            docname:frm.doc.name
         },
         callback: function (r) {
             if (r.message && r.message.status === "success") {
@@ -989,13 +1007,37 @@ function submitDraftStockEntries(frm) {
                     item.fuel_transfer_status = "Fuel Transferred";
                 });
                 frappe.msgprint(r.message.message); // Show success message
-                frm.clear_table('recieve_stock'); // Optionally clear the table after submission
+                frm.clear_table('recieve_stock');   // Optionally clear the table after submission
                 frm.refresh_field('recieve_stock'); // Refresh the field to reflect changes
             } else {
                 frappe.msgprint("Error: " + (r.message.error || "Unknown error occurred."));
             }
+        },
+        error: function(err) {
+            frappe.msgprint("Error during submission: " + err.message); // Enhanced error handling
         }
     });
+}
+
+
+
+function calculateAmountOnDipping(frm, cdt, cdn) {
+
+    // Get the specific child table row being edited
+    let row = locals[cdt][cdn];
+
+    // Calculate the quantity sold on meter reading for the current row difference_amount
+    row.amount = row.dipping_qty * row.valuation_rate;
+    row.quantity_difference = row.dipping_qty - row.current_qty;
+    row.amount_difference = row.amount - row.current_amount;
+
+    // Refresh the field in the current row
+    frm.refresh_field('dipping_details');
+
+    // Optionally, refresh only the specific row
+    frm.refresh_field('amount', row.name);
+    frm.refresh_field('quantity_difference', row.name);
+    frm.refresh_field('amount_difference', row.name);
 }
 
 

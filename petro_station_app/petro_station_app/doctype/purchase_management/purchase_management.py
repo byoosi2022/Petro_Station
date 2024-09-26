@@ -207,7 +207,7 @@ class PurchaseManagement(Document):
             if stock_entry.items:
                 try:
                     stock_entry.insert()
-                    stock_entry.submit()
+                    # stock_entry.submit()
                     frappe.db.commit()
                     frappe.msgprint(_("Stock Transfer created for target store {0}").format(target_store))
                 except Exception as e:

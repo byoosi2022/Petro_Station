@@ -17,7 +17,7 @@ def get_material_transfer_entries(station):
             "Warehouse",
             filters={
                 "warehouse_type": "Transit",
-                # "custom_cost_centre": station,
+                "custom_cost_centre": station,
             },
             fields=["name"]
         )
@@ -31,8 +31,8 @@ def get_material_transfer_entries(station):
             stock_entry_details = frappe.get_all('Stock Entry Detail',
                 filters={
                     'parent': entry.name,
-                    'cost_center': station,  # Filter by cost center == station
-                    's_warehouse': ['in', transit_warehouse_names],  # Source warehouse must be of type Transit
+                    # 'cost_center': station,  # Filter by cost center == station
+                    # 's_warehouse': ['in', transit_warehouse_names],  # Source warehouse must be of type Transit
                     't_warehouse': ['in', transit_warehouse_names]   # Target warehouse must be of type Transit
                 },
                 fields=['name', 'item_code', 's_warehouse', 't_warehouse', 'qty', 'cost_center']
@@ -46,7 +46,7 @@ def get_material_transfer_entries(station):
                     'posting_time': entry.posting_time,
                     'details': stock_entry_details
                 })
-
+        
         if not filtered_entries:
             return {"status": "failed", "message": "No matching Stock Entries found."}
         

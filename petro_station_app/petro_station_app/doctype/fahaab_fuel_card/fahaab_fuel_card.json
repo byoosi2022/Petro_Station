@@ -1,27 +1,31 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "naming_series:",
  "creation": "2024-09-24 11:33:01.601120",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "section_break_gbak",
+  "custom_serie",
   "customer",
   "customer_name",
-  "email",
+  "naming_series",
   "column_break_omwl",
   "status",
   "contact_number",
+  "email",
   "section_break_ljiu",
   "card_limit",
   "column_break_gtwv",
-  "customters_balance",
+  "customers_balance",
   "amended_from"
  ],
  "fields": [
   {
    "fieldname": "section_break_gbak",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Detail"
   },
   {
    "fieldname": "customer",
@@ -46,10 +50,13 @@
    "label": "Email"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "\nActive\nDisable"
+   "options": "\nActive\nDisable",
+   "print_hide": 1,
+   "report_hide": 1
   },
   {
    "fieldname": "column_break_omwl",
@@ -62,14 +69,10 @@
    "label": "Limits"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "card_limit",
    "fieldtype": "Currency",
    "label": "Card Limit"
-  },
-  {
-   "fieldname": "customters_balance",
-   "fieldtype": "Currency",
-   "label": "Customters Balance"
   },
   {
    "fieldname": "column_break_gtwv",
@@ -84,15 +87,35 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "custom_serie",
+   "fieldtype": "Data",
+   "label": "Custom Serie",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "PSA-FFC-.YYYY.-"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "customers_balance",
+   "fieldtype": "Currency",
+   "label": "Customers Balance"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-24 11:40:01.477247",
+ "modified": "2024-09-28 19:28:19.772584",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Fahaab Fuel Card",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
@@ -104,12 +127,29 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
    "share": 1,
    "submit": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "select": 1,
+   "share": 1,
+   "write": 1
   }
  ],
+ "search_fields": "custom_serie,card_limit,customers_balance,status,contact_number",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }

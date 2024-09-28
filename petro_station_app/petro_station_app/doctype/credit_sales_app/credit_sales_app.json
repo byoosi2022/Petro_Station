@@ -9,6 +9,8 @@
  "field_order": [
   "naming_series",
   "customer",
+  "pick_the_card",
+  "otp_code",
   "customer_name",
   "station",
   "price_list",
@@ -34,7 +36,15 @@
   "expense_items",
   "grand_total",
   "je_id",
-  "amended_from"
+  "amended_from",
+  "fuel_card_details_tab",
+  "card",
+  "card_number",
+  "card_limit",
+  "column_break_mhoq",
+  "status",
+  "customers_balance",
+  "has_fuel_card"
  ],
  "fields": [
   {
@@ -225,12 +235,77 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "description": "If Checked the customers Limit will reduced on Submition, uncheck if NO CARD PLEASE",
+   "fieldname": "fuel_card_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Fuel Card Details"
+  },
+  {
+   "fetch_from": "pick_the_card.custom_serie",
+   "fieldname": "card",
+   "fieldtype": "Data",
+   "label": "My Crad",
+   "options": "Fahaab Fuel Card",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pick_the_card.status",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "status",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pick_the_card.card_limit",
+   "fieldname": "card_limit",
+   "fieldtype": "Currency",
+   "label": "Card Limit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_mhoq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "If checked the customer's CARD LIMIT will Reduce on submition, Uncheck if no FUEL CARD PLEASE",
+   "fieldname": "has_fuel_card",
+   "fieldtype": "Check",
+   "label": "Has Fuel Card"
+  },
+  {
+   "fetch_from": "pick_the_card.customers_balance",
+   "fieldname": "customers_balance",
+   "fieldtype": "Currency",
+   "label": "Customer's Balance",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pick_the_card.custom_serie",
+   "fieldname": "card_number",
+   "fieldtype": "Data",
+   "label": "Card Number ",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pick_the_card",
+   "fieldtype": "Link",
+   "label": "Pick the Card",
+   "options": "Fahaab Fuel Card"
+  },
+  {
+   "fieldname": "otp_code",
+   "fieldtype": "Data",
+   "label": "OTP Code",
+   "options": "Fahaab Fuel Card"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-04 17:56:58.529350",
+ "modified": "2024-09-28 18:36:43.972838",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Credit Sales App",

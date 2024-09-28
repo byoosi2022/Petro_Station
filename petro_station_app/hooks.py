@@ -170,6 +170,11 @@ doc_events = {
         "on_cancel": "petro_station_app.custom_api.bank_deposits.update_bank_deposits"
         
     },
+    # "Fahaab Fuel Card": {
+      
+    #     "on_update": "petro_station_app.custom_api.cards.custom_serie.custom_naming",
+        
+    # },
 }
 # Scheduled Tasks
 # ---------------

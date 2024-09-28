@@ -931,7 +931,7 @@ function fetchStockTransfersDraft(frm) {
             station: frm.doc.station, // Pass the station value from your form
         },
         callback: function (r) {
-            console.log(r)
+            // console.log(r)
             if (r.message) {
                 var items = r.message.data; // Assign the returned items, assuming the response contains a `data` field
 

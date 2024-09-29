@@ -41,10 +41,11 @@
   "card",
   "card_number",
   "card_limit",
+  "phone_number",
   "column_break_mhoq",
   "status",
   "customers_balance",
-  "has_fuel_card"
+  "has_card"
  ],
  "fields": [
   {
@@ -269,13 +270,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "0",
-   "description": "If checked the customer's CARD LIMIT will Reduce on submition, Uncheck if no FUEL CARD PLEASE",
-   "fieldname": "has_fuel_card",
-   "fieldtype": "Check",
-   "label": "Has Fuel Card"
-  },
-  {
    "fetch_from": "pick_the_card.customers_balance",
    "fieldname": "customers_balance",
    "fieldtype": "Currency",
@@ -300,12 +294,25 @@
    "fieldtype": "Data",
    "label": "OTP Code",
    "options": "Fahaab Fuel Card"
+  },
+  {
+   "default": "0",
+   "description": "If checked the customer's CARD LIMIT will Reduce on submition, Uncheck if no FUEL CARD PLEASE",
+   "fieldname": "has_card",
+   "fieldtype": "Check",
+   "label": "Has Fuel Card"
+  },
+  {
+   "fetch_from": "pick_the_card.contact_number",
+   "fieldname": "phone_number",
+   "fieldtype": "Phone",
+   "label": "Phone Number"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-28 18:36:43.972838",
+ "modified": "2024-09-30 02:00:10.427603",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Credit Sales App",
@@ -351,13 +358,24 @@
    "share": 1,
    "submit": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
   }
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "customer_name",
- "track_changes": 1,
- "track_seen": 1,
- "track_views": 1
+ "title_field": "customer_name"
 }

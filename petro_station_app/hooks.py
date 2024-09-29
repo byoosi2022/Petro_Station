@@ -261,8 +261,12 @@ doc_events = {
 
 fixtures = [
     {"dt": "Client Script", "filters": [["module", "=", "Petro Station App"]]},
-    {"dt": "Custom Field", "filters": [["module", "=", "Petro Station App"]]}
+    {"dt": "Custom Field", "filters": [["module", "=", "Petro Station App"]]},
+    {"dt": "Workflow", "filters": [["document_type", "=", "Fahaab Fuel Card"]]},
+    # For Print Format, exclude custom_format
+    {"dt": "Print Format", "filters": [["module", "=", "Petro Station App"], ["custom_format", "=", 0]]}
 ]
+
 
 # Authentication and authorization
 # --------------------------------

@@ -9,16 +9,21 @@ from frappe import _  # type: ignore
 class CreditSalesApp(Document):
     def on_submit(self):
         # Check if customer has a fuel card and the status is "Active"
-        if self.has_fuel_card == 1 and self.status == "Active":
+        if self.has_card == 1 and self.status == "Active":
             # Fetch the corresponding Fuel Card for the customer using the custom field
             custom_fuel_card_number = self.card_number
             fuel_card = frappe.get_doc("Fahaab Fuel Card", {"customer": self.customer, "custom_serie": custom_fuel_card_number})
 
             if fuel_card:
+                # Check if OTP code is not set or empty
+                if not self.otp_code:
+                    frappe.throw(_("Please fill in the OTP Code before proceeding"))
+
+                # Validate if OTP code exists in the 'OTP Code' doctype
                 existing_otp_code = frappe.db.exists('OTP Code', {'name': self.otp_code})
-                if self.otp_code:
-                    if not existing_otp_code:
-                        frappe.throw('Error: OTP Code is not correct.')
+    
+                if not existing_otp_code:  # If OTP code does not exist
+                    frappe.throw(_('Error: OTP Code is not correct.'))
                 
                 # Calculate total outstanding balance for the customer
                 total_outstanding = frappe.db.get_value(
@@ -39,6 +44,8 @@ class CreditSalesApp(Document):
                             overall_total, fuel_card.card_limit
                         )
                     )
+                    
+                             
 
                 # Deduct the card limit by the current outstanding amount
                 fuel_card.customers_balance += overall_total
@@ -98,7 +105,7 @@ class CreditSalesApp(Document):
             sales_invoice.posting_time = self.time
 
             # Set the custom fuel card number only if applicable
-            if self.has_fuel_card and self.card_number:
+            if self.has_card and self.card_number:
                 sales_invoice.custom_fuel_card_number = self.card_number
 
             sales_invoice.additional_discount_account = "5125 - Discounts on Fuel - FEU"
@@ -130,7 +137,7 @@ class CreditSalesApp(Document):
 
     def on_cancel(self):
         # Check if customer has a fuel card and the status is "Active"
-        if self.has_fuel_card == 1 and self.status == "Active":
+        if self.has_card == 1 and self.status == "Active":
             # Fetch the corresponding Fuel Card for the customer using the custom field
             custom_fuel_card_number = self.card_number
             fuel_card = frappe.get_doc("Fahaab Fuel Card", {"customer": self.customer, "custom_serie": custom_fuel_card_number})
@@ -142,7 +149,7 @@ class CreditSalesApp(Document):
                 
     def on_update(self):
         # Check if customer has a fuel card and the status is "Active"
-        if self.has_fuel_card == 1 and self.status == "Active":
+        if self.has_card == 1 and self.status == "Active":
             try:
                 # Get customer contact number
                 customer_contact = self.get_customer_contact()
@@ -156,6 +163,7 @@ class CreditSalesApp(Document):
                     otp_code_doc.tel = customer_contact
                     otp_code_doc.credit_id = self.name  # self.name is the Credit Sales App name
                     otp_code_doc.insert()
+                    otp_code_doc.submit()
                     frappe.msgprint('OTP Code created successfully!')
             except Exception as e:
                 frappe.msgprint(str(e))

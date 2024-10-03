@@ -82,8 +82,9 @@ class CreditSalesApp(Document):
                         "item_code": item.item_code,
                         "qty": item.qty,
                         "uom": item.uom,
-                        "s_warehouse": source_warehouse,
-                        "t_warehouse": in_transit_warehouse
+                        "s_warehouse": in_transit_warehouse,
+                        "t_warehouse": source_warehouse
+               
                     })
 
             stock_entry.insert()

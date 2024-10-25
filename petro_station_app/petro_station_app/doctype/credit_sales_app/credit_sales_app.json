@@ -36,7 +36,6 @@
   "expense_items",
   "grand_total",
   "je_id",
-  "amended_from",
   "fuel_card_details_tab",
   "card",
   "card_number",
@@ -45,7 +44,8 @@
   "column_break_mhoq",
   "status",
   "customers_balance",
-  "has_card"
+  "has_card",
+  "amended_from"
  ],
  "fields": [
   {
@@ -248,7 +248,7 @@
    "fieldname": "card",
    "fieldtype": "Data",
    "label": "My Crad",
-   "options": "Fahaab Fuel Card",
+   "options": "Fuel Card",
    "read_only": 1
   },
   {
@@ -287,17 +287,18 @@
    "fieldname": "pick_the_card",
    "fieldtype": "Link",
    "label": "Pick the Card",
-   "options": "Fahaab Fuel Card"
+   "options": "Fuel Card"
   },
   {
    "fieldname": "otp_code",
    "fieldtype": "Data",
    "label": "OTP Code",
-   "options": "Fahaab Fuel Card"
+   "options": "Fuel Card"
   },
   {
    "default": "0",
    "description": "If checked the customer's CARD LIMIT will Reduce on submition, Uncheck if no FUEL CARD PLEASE",
+   "fetch_from": "customer.custom_use_fuel_card",
    "fieldname": "has_card",
    "fieldtype": "Check",
    "label": "Has Fuel Card"
@@ -305,14 +306,14 @@
   {
    "fetch_from": "pick_the_card.contact_number",
    "fieldname": "phone_number",
-   "fieldtype": "Phone",
+   "fieldtype": "Data",
    "label": "Phone Number"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-30 02:00:10.427603",
+ "modified": "2024-10-24 08:42:36.355899",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Credit Sales App",

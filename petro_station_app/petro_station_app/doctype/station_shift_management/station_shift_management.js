@@ -555,7 +555,8 @@ function getBankingandCashwithoutdate(frm) {
 
                         // Set values from response to new item fields
                         new_item.account = account_data.account;
-                        new_item.amount_recived = account_data.total_debits;
+                        //new_item.amount_recived = account_data.total_debits;
+                        new_item.amount_recived = account_data.total_debits > 1 ? account_data.total_debits : 0;
                         new_item.amount_spent = account_data.total_credits;
                         new_item.available_amount = account_data.total_debits - account_data.total_credits;
 
@@ -1039,8 +1040,4 @@ function calculateAmountOnDipping(frm, cdt, cdn) {
     frm.refresh_field('quantity_difference', row.name);
     frm.refresh_field('amount_difference', row.name);
 }
-
-
-
-
 

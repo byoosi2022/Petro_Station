@@ -12,7 +12,7 @@ class CreditSalesApp(Document):
         if self.has_card == 1 and self.status == "Active":
             # Fetch the corresponding Fuel Card for the customer using the custom field
             custom_fuel_card_number = self.card_number
-            fuel_card = frappe.get_doc("Fahaab Fuel Card", {"customer": self.customer, "custom_serie": custom_fuel_card_number})
+            fuel_card = frappe.get_doc("Fuel Card", {"customer": self.customer, "custom_serie": custom_fuel_card_number})
 
             if fuel_card:
                 # Check if OTP code is not set or empty
@@ -141,7 +141,7 @@ class CreditSalesApp(Document):
         if self.has_card == 1 and self.status == "Active":
             # Fetch the corresponding Fuel Card for the customer using the custom field
             custom_fuel_card_number = self.card_number
-            fuel_card = frappe.get_doc("Fahaab Fuel Card", {"customer": self.customer, "custom_serie": custom_fuel_card_number})
+            fuel_card = frappe.get_doc("Fuel Card", {"customer": self.customer, "custom_serie": custom_fuel_card_number})
 
             if fuel_card:
                 # Deduct the net_total from the customer's balance
@@ -173,7 +173,7 @@ class CreditSalesApp(Document):
         # Check if a fuel card is selected
         if self.pick_the_card:
             # Fetch the fuel card document
-            card_id = frappe.get_doc('Fahaab Fuel Card', self.pick_the_card)
+            card_id = frappe.get_doc('Fuel Card', self.pick_the_card)
 
             # Get the contact number from the fuel card
             contact_number = card_id.contact_number  # Assuming 'contact_number' is the field name

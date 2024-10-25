@@ -1,14 +1,14 @@
 // Copyright (c) 2024, mututa paul and contributors
 // For license information, please see license.txt
 
-// frappe.ui.form.on("Fahaab Fuel Card", {
+// frappe.ui.form.on("Fuel Card", {
 // 	refresh(frm) {
 
 // 	},
 // });
 
 // Client Script for generating custom series on form load or before save
-frappe.ui.form.on('Fahaab Fuel Card', {
+frappe.ui.form.on('Fuel Card', {
     before_save: function(frm) {
         // Check if custom_serie is already set
         if (frm.doc.custom_serie) {
@@ -27,7 +27,7 @@ frappe.ui.form.on('Fahaab Fuel Card', {
         frappe.call({
             method: 'frappe.client.get_list',
             args: {
-                doctype: 'Fahaab Fuel Card',
+                doctype: 'Fuel Card',
                 fields: ['custom_serie'],
                 limit: 1,
                 order_by: 'creation desc'

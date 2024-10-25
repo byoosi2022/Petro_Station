@@ -41,7 +41,7 @@ class StationExpenses(Document):
                 'description': item.description,
                 'debit_in_account_currency': item.amount,
                 'credit_in_account_currency': 0,
-                'cost_center': self.station
+                'cost_center': item.branch
             })
             
             # Credit Entry
@@ -49,7 +49,7 @@ class StationExpenses(Document):
                 'account': methods,
                 'debit_in_account_currency': 0,
                 'credit_in_account_currency': item.amount,
-                'cost_center': self.station
+                'cost_center': item.branch
             })
             
             # Additional Debit Entry
@@ -60,7 +60,7 @@ class StationExpenses(Document):
                 'party': item.party,
                 'debit_in_account_currency': 0,
                 'credit_in_account_currency': item.amount,
-                'cost_center': self.station
+                'cost_center': item.branch
             })
             
             # Additional Credit Entry
@@ -68,7 +68,7 @@ class StationExpenses(Document):
                 'account': claim_account,
                 'debit_in_account_currency': item.amount,
                 'credit_in_account_currency': 0,
-                'cost_center': self.station
+                'cost_center': item.branch
             })
         
         # Save the Journal Entry

@@ -4,7 +4,7 @@
 import frappe
 from frappe.model.document import Document
 
-class FahaabFuelCard(Document):
+class FuelCard(Document):
     def on_load(self):
         # Check if the customer is set
         if self.customer:

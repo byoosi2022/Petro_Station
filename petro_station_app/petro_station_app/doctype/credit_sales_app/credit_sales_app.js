@@ -45,10 +45,10 @@ frappe.ui.form.on('Credit Sales App', {
     },
     customer: function(frm) {
         // Clear the card field initially
-        frm.set_value('pick_the_card', '');
+        // frm.set_value('pick_the_card', '');
     
         // Always hide the pick_the_card field initially
-        frm.toggle_display('pick_the_card', false);
+        // frm.toggle_display('pick_the_card', false);
     
         // Get the selected customer
         var cust = frm.doc.customer;
@@ -62,7 +62,7 @@ frappe.ui.form.on('Credit Sales App', {
             frappe.call({
                 method: 'frappe.client.get_list',
                 args: {
-                    doctype: 'Fahaab Fuel Card',
+                    doctype: 'Fuel Card',
                     filters: {
                         customer: cust,
                         docstatus: 1 // Filter only for submitted records
@@ -70,6 +70,7 @@ frappe.ui.form.on('Credit Sales App', {
                     limit_page_length: 1 // Limit the results to 1 if you only need to check for existence
                 },
                 callback: function(response) {
+                console.log(response)
                     // Hide loading indicator
                     frm.set_df_property('pick_the_card', 'read_only', false); // Re-enable the field
     

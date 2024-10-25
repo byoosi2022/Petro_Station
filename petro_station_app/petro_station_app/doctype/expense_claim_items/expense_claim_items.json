@@ -8,6 +8,7 @@
  "field_order": [
   "party_type",
   "party",
+  "branch",
   "claim_type",
   "amount",
   "description"
@@ -45,12 +46,19 @@
    "fieldtype": "Small Text",
    "in_list_view": 1,
    "label": "Description"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Branch",
+   "options": "Cost Center"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-20 03:45:54.064112",
+ "modified": "2024-10-11 17:40:00.598806",
  "modified_by": "Administrator",
  "module": "Petro Station App",
  "name": "Expense Claim Items",

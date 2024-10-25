@@ -1,0 +1,109 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "creation": "2024-10-23 13:09:00.600782",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "section_break_jpnr",
+     "requisition_by",
+     "department",
+     "amount_words",
+     "amount_figures",
+     "payment_mode",
+     "purpose",
+     "date",
+     "checked_by_accounts",
+     "approved_by_donation_manager",
+     "director_authorisation"
+    ],
+    "fields": [
+     {
+      "fieldname": "section_break_jpnr",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "requisition_by",
+      "fieldtype": "Data",
+      "label": "Requisition By",
+      "reqd": 1
+     },
+     {
+      "fieldname": "department",
+      "fieldtype": "Link",
+      "label": "Department",
+      "options": "Department"
+     },
+     {
+      "fieldname": "amount_words",
+      "fieldtype": "Data",
+      "label": "Amount in Words (USD)"
+     },
+     {
+      "fieldname": "amount_figures",
+      "fieldtype": "Currency",
+      "label": "Amount in Figures (USD)"
+     },
+     {
+      "fieldname": "payment_mode",
+      "fieldtype": "Select",
+      "label": "Payment Mode",
+      "options": "\nCash\nTransfer\nOther"
+     },
+     {
+      "fieldname": "purpose",
+      "fieldtype": "Text",
+      "label": "Purpose"
+     },
+     {
+      "fieldname": "date",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "label": "Date ",
+      "reqd": 1
+     },
+     {
+      "fieldname": "checked_by_accounts",
+      "fieldtype": "Data",
+      "label": "Checked by Accounts",
+      "reqd": 0
+     },
+     {
+      "fieldname": "approved_by_donation_manager",
+      "fieldtype": "Data",
+      "label": "Approved by Donation Manager"
+     },
+     {
+      "fieldname": "director_authorisation",
+      "fieldtype": "Data",
+      "label": "Director Authorisation"
+     }
+    ],
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [],
+    "modified": "2024-10-23 13:11:36.338527",
+    "modified_by": "Administrator",
+    "module": "Petro Station App",
+    "name": "Payment Requisition",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+   }
+   

@@ -45,6 +45,22 @@ frappe.ui.form.on('Purchase Management', {
                 }
             }
         }
+        if (frm.doc.other_items) {
+            // Iterate through each item in the stock_items table
+            for (let i = 0; i < frm.doc.other_items.length; i++) {
+                let item = frm.doc.other_items[i];
+
+                // Get the rate and for the current row
+                let rate = item.rate;
+                // Check if the rate if the rate i less than zero
+                if (rate < 0) {
+                    // Notify the user and prevent saving
+                    frappe.msgprint(__('Row {0}: The rate ({1}) can not be less or equal to zero ({2}). Please adjust the quantity.', [i + 1, qty, capacityNeedForTransfer]));
+                    frappe.validated = false; // Prevent saving
+                    return; // Exit the loop and validation function
+                }
+            }
+        }
     }
 });
 

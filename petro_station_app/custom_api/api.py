@@ -297,7 +297,7 @@ def get_gl_acount(station, from_date=None):
     # Fetch the associated Account document using the account field from each GL Entry
     for entry in fetch_entries:
         account_doc = frappe.get_doc("Account", entry['account'])
-        if account_doc.account_type == "Cash":
+        if account_doc.account_type == "Cash" and account_doc.parent_account != "1141 - SOROTI HQ Cash - FEU":
             if entry['account'] not in account_totals:
                 account_totals[entry['account']] = {
                     "account": entry['account'],
@@ -327,7 +327,7 @@ def get_gl_acount_withoutdate(station):
     # Fetch the associated Account document using the account field from each GL Entry
     for entry in fetch_entries:
         account_doc = frappe.get_doc("Account", entry['account'])
-        if account_doc.account_type == "Cash":
+        if account_doc.account_type == "Cash" and account_doc.parent_account != "1141 - SOROTI HQ Cash - FEU":
             if entry['account'] not in account_totals:
                 account_totals[entry['account']] = {
                     "account": entry['account'],

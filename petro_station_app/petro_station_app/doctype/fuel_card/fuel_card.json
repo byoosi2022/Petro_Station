@@ -83,7 +83,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Fahaab Fuel Card",
+   "options": "Fuel Card",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
@@ -111,10 +111,10 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-29 13:58:23.691144",
+ "modified": "2024-10-24 07:54:41.768533",
  "modified_by": "Administrator",
  "module": "Petro Station App",
- "name": "Fahaab Fuel Card",
+ "name": "Fuel Card",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
